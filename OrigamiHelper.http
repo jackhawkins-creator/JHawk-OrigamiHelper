@@ -1,0 +1,6 @@
+@OrigamiHelper_HostAddress = http://localhost:5084
+
+GET {{OrigamiHelper_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
