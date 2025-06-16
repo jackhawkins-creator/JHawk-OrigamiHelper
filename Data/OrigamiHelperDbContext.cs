@@ -8,7 +8,13 @@ namespace OrigamiHelper.Data;
 public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
 {
     private readonly IConfiguration _configuration;
+    
     public DbSet<UserProfile> UserProfiles { get; set; }
+    public DbSet<Model> Models { get; set; }
+    public DbSet<Complexity> Complexities { get; set; }
+    public DbSet<ModelPaper> ModelPapers { get; set; }
+    public DbSet<Paper> Papers { get; set; }
+    public DbSet<Source> Sources { get; set; }
 
     public OrigamiHelperDbContext(DbContextOptions<OrigamiHelperDbContext> context, IConfiguration config) : base(context)
     {
@@ -66,8 +72,8 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
 
         // Seed Sources
         modelBuilder.Entity<Source>().HasData(
-            new Source { Id = 1, Title = "Origami Design Secrets 2E", Artist = "Robert Lang" },
-            new Source { Id = 2, Title = "Works of Satoshi Kamiya 1995-2003", Artist = "Satoshi Kamiya" }
+            new Source { Id = 1, Title = "Origami Design Secrets 2E" },
+            new Source { Id = 2, Title = "Works of Satoshi Kamiya 1995-2003" }
         );
 
         // Seed Models
@@ -82,7 +88,8 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
                 StepCount = 20,
                 CreatorId = 1,
                 CreatedAt = DateTime.UtcNow,
-                ModelImg = "crane.png"
+                ModelImg = "crane.png",
+                Artist = "Robert Lang"
             },
             new Model
             {
@@ -94,7 +101,8 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
                 StepCount = 120,
                 CreatorId = 1,
                 CreatedAt = DateTime.UtcNow,
-                ModelImg = "dragon.png"
+                ModelImg = "dragon.png",
+                Artist = "Satoshi Kamiya"
             }
         );
 

@@ -12,7 +12,7 @@ using OrigamiHelper.Data;
 namespace OrigamiHelper.Migrations
 {
     [DbContext(typeof(OrigamiHelperDbContext))]
-    [Migration("20250616181659_InitialCreate")]
+    [Migration("20250616191700_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -152,13 +152,13 @@ namespace OrigamiHelper.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "44b41f59-bae3-4e0b-90c1-8521c9b03f51",
+                            ConcurrencyStamp = "d6284a53-5af8-458c-a56c-84bd3858f4ff",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEHqQttfiQh0caTF50WDjKIFiaauoZbkggd2gdajh9/hZgkmgGQ3DdaRahLmb9sJD/A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENXZEk/YMlw9uQiuGu+aDy5vkwHDJHkwAYRswuT7X2YLygjrtaQQir6wSTEYiHvxiA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4a55d8d1-51fd-448f-9ddb-c1b5d578fe6e",
+                            SecurityStamp = "de3fab51-cd10-4b61-b28a-9228c2d5cd80",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -266,7 +266,7 @@ namespace OrigamiHelper.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Complexity");
+                    b.ToTable("Complexities");
 
                     b.HasData(
                         new
@@ -309,6 +309,10 @@ namespace OrigamiHelper.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Artist")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("ComplexityId")
                         .HasColumnType("integer");
 
@@ -337,14 +341,15 @@ namespace OrigamiHelper.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Model");
+                    b.ToTable("Models");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            Artist = "Robert Lang",
                             ComplexityId = 1,
-                            CreatedAt = new DateTime(2025, 6, 16, 18, 16, 58, 822, DateTimeKind.Utc).AddTicks(6357),
+                            CreatedAt = new DateTime(2025, 6, 16, 19, 17, 0, 532, DateTimeKind.Utc).AddTicks(4789),
                             CreatorId = 1,
                             ModelImg = "crane.png",
                             PaperId = 1,
@@ -355,8 +360,9 @@ namespace OrigamiHelper.Migrations
                         new
                         {
                             Id = 2,
+                            Artist = "Satoshi Kamiya",
                             ComplexityId = 6,
-                            CreatedAt = new DateTime(2025, 6, 16, 18, 16, 58, 822, DateTimeKind.Utc).AddTicks(6361),
+                            CreatedAt = new DateTime(2025, 6, 16, 19, 17, 0, 532, DateTimeKind.Utc).AddTicks(4795),
                             CreatorId = 1,
                             ModelImg = "dragon.png",
                             PaperId = 3,
@@ -382,7 +388,7 @@ namespace OrigamiHelper.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ModelPaper");
+                    b.ToTable("ModelPapers");
 
                     b.HasData(
                         new
@@ -419,7 +425,7 @@ namespace OrigamiHelper.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Paper");
+                    b.ToTable("Papers");
 
                     b.HasData(
                         new
@@ -447,29 +453,23 @@ namespace OrigamiHelper.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Artist")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Source");
+                    b.ToTable("Sources");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            Artist = "Robert Lang",
                             Title = "Origami Design Secrets 2E"
                         },
                         new
                         {
                             Id = 2,
-                            Artist = "Satoshi Kamiya",
                             Title = "Works of Satoshi Kamiya 1995-2003"
                         });
                 });

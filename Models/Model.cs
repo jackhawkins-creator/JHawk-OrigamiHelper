@@ -12,4 +12,5 @@ public class Model
     public int CreatorId { get; set; }
     public DateTime CreatedAt { get; set; }
     public string ModelImg { get; set; }
+    public string Artist { get; set; }
 }
