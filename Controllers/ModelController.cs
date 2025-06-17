@@ -21,11 +21,28 @@ public class ModelController : ControllerBase
     //GET all models, newest to oldest
     [HttpGet]
     //[Authorize]
-    public IActionResult GetAllPosts()
+    public IActionResult GetAllModels()
     {
         return Ok(_dbContext
             .Models
             .OrderByDescending(m => m.CreatedAt)
             .ToList());
+    }
+
+    //GET single Model by id
+    [HttpGet("{id}")]
+    //[Authorize]
+    public IActionResult GetById(int id)
+    {
+        Model model = _dbContext
+            .Models
+            .SingleOrDefault(m => m.Id == id);
+
+        if (model == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(model);
     }
 }

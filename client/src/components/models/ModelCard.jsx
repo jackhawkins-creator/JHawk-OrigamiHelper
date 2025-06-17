@@ -1,0 +1,26 @@
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardText,
+  CardSubtitle,
+} from "reactstrap";
+
+export default function ModelCard({ model }) {
+  return (
+    <Card className="mb-4">
+      <img src={`/images/${model.modelImg}`} alt={model.title} className="card-img-top" />
+      <CardBody>
+        <CardTitle tag="h5">{model.title}</CardTitle>
+        <CardSubtitle className="mb-2 text-muted">
+          {model.artist}
+        </CardSubtitle>
+        <CardText>
+          Steps: {model.stepCount}<br />
+          Complexity ID: {model.complexityId}<br />
+          Paper ID: {model.paperId}
+        </CardText>
+      </CardBody>
+    </Card>
+  );
+}

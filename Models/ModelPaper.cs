@@ -5,5 +5,7 @@ public class ModelPaper
 {
     public int Id { get; set; }
     public int ModelId { get; set; }
+    public Model Model { get; set; }
     public int PaperId { get; set; }
+    public Paper Paper { get; set; }
 }
