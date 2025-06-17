@@ -12,7 +12,8 @@ public class ModelDTO
     public int SourceId { get; set; }
     public SourceDTO Source { get; set; }
     public int StepCount { get; set; }
-    public int CreatorId { get; set; }
+    public int UserProfileId { get; set; }
+    public UserProfileDTO UserProfile { get; set; }
     public DateTime CreatedAt { get; set; }
     public string ModelImg { get; set; }
     public List<ModelPaperDTO> ModelPapers { get; set; }

@@ -149,13 +149,13 @@ namespace OrigamiHelper.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d6284a53-5af8-458c-a56c-84bd3858f4ff",
+                            ConcurrencyStamp = "12b2b863-7905-41f9-840e-a29d24344d09",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAENXZEk/YMlw9uQiuGu+aDy5vkwHDJHkwAYRswuT7X2YLygjrtaQQir6wSTEYiHvxiA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHF9tRwKPrYi1jfZAh1WABfAt/smNQuC7qVkQjAnVwjuFnDWP/Dd7w1Oc7W+95weBg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "de3fab51-cd10-4b61-b28a-9228c2d5cd80",
+                            SecurityStamp = "794cef68-1b16-42a4-bcc4-dbb8acb1d37a",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -316,9 +316,6 @@ namespace OrigamiHelper.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("ModelImg")
                         .IsRequired()
                         .HasColumnType("text");
@@ -336,7 +333,18 @@ namespace OrigamiHelper.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("UserProfileId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ComplexityId");
+
+                    b.HasIndex("PaperId");
+
+                    b.HasIndex("SourceId");
+
+                    b.HasIndex("UserProfileId");
 
                     b.ToTable("Models");
 
@@ -346,26 +354,26 @@ namespace OrigamiHelper.Migrations
                             Id = 1,
                             Artist = "Robert Lang",
                             ComplexityId = 1,
-                            CreatedAt = new DateTime(2025, 6, 16, 19, 17, 0, 532, DateTimeKind.Utc).AddTicks(4789),
-                            CreatorId = 1,
+                            CreatedAt = new DateTime(2025, 6, 17, 15, 33, 59, 853, DateTimeKind.Utc).AddTicks(6314),
                             ModelImg = "crane.png",
                             PaperId = 1,
                             SourceId = 1,
                             StepCount = 20,
-                            Title = "Dancing Crane"
+                            Title = "Dancing Crane",
+                            UserProfileId = 1
                         },
                         new
                         {
                             Id = 2,
                             Artist = "Satoshi Kamiya",
                             ComplexityId = 6,
-                            CreatedAt = new DateTime(2025, 6, 16, 19, 17, 0, 532, DateTimeKind.Utc).AddTicks(4795),
-                            CreatorId = 1,
+                            CreatedAt = new DateTime(2025, 6, 17, 15, 33, 59, 853, DateTimeKind.Utc).AddTicks(6318),
                             ModelImg = "dragon.png",
                             PaperId = 3,
                             SourceId = 2,
                             StepCount = 120,
-                            Title = "Ancient Dragon"
+                            Title = "Ancient Dragon",
+                            UserProfileId = 1
                         });
                 });
 
@@ -384,6 +392,10 @@ namespace OrigamiHelper.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ModelId");
+
+                    b.HasIndex("PaperId");
 
                     b.ToTable("ModelPapers");
 
@@ -563,6 +575,60 @@ namespace OrigamiHelper.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("OrigamiHelper.Models.Model", b =>
+                {
+                    b.HasOne("OrigamiHelper.Models.Complexity", "Complexity")
+                        .WithMany()
+                        .HasForeignKey("ComplexityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrigamiHelper.Models.Paper", "Paper")
+                        .WithMany()
+                        .HasForeignKey("PaperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrigamiHelper.Models.Source", "Source")
+                        .WithMany()
+                        .HasForeignKey("SourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrigamiHelper.Models.UserProfile", "UserProfile")
+                        .WithMany()
+                        .HasForeignKey("UserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Complexity");
+
+                    b.Navigation("Paper");
+
+                    b.Navigation("Source");
+
+                    b.Navigation("UserProfile");
+                });
+
+            modelBuilder.Entity("OrigamiHelper.Models.ModelPaper", b =>
+                {
+                    b.HasOne("OrigamiHelper.Models.Model", "Model")
+                        .WithMany("ModelPapers")
+                        .HasForeignKey("ModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrigamiHelper.Models.Paper", "Paper")
+                        .WithMany()
+                        .HasForeignKey("PaperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Model");
+
+                    b.Navigation("Paper");
+                });
+
             modelBuilder.Entity("OrigamiHelper.Models.UserProfile", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
@@ -572,6 +638,11 @@ namespace OrigamiHelper.Migrations
                         .IsRequired();
 
                     b.Navigation("IdentityUser");
+                });
+
+            modelBuilder.Entity("OrigamiHelper.Models.Model", b =>
+                {
+                    b.Navigation("ModelPapers");
                 });
 #pragma warning restore 612, 618
         }

@@ -67,41 +67,6 @@ namespace OrigamiHelper.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ModelPapers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ModelId = table.Column<int>(type: "integer", nullable: false),
-                    PaperId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ModelPapers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Models",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    ComplexityId = table.Column<int>(type: "integer", nullable: false),
-                    PaperId = table.Column<int>(type: "integer", nullable: false),
-                    SourceId = table.Column<int>(type: "integer", nullable: false),
-                    StepCount = table.Column<int>(type: "integer", nullable: false),
-                    CreatorId = table.Column<int>(type: "integer", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    ModelImg = table.Column<string>(type: "text", nullable: false),
-                    Artist = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Models", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Papers",
                 columns: table => new
                 {
@@ -255,6 +220,77 @@ namespace OrigamiHelper.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Models",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    ComplexityId = table.Column<int>(type: "integer", nullable: false),
+                    PaperId = table.Column<int>(type: "integer", nullable: false),
+                    SourceId = table.Column<int>(type: "integer", nullable: false),
+                    StepCount = table.Column<int>(type: "integer", nullable: false),
+                    UserProfileId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ModelImg = table.Column<string>(type: "text", nullable: false),
+                    Artist = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Models", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Models_Complexities_ComplexityId",
+                        column: x => x.ComplexityId,
+                        principalTable: "Complexities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Models_Papers_PaperId",
+                        column: x => x.PaperId,
+                        principalTable: "Papers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Models_Sources_SourceId",
+                        column: x => x.SourceId,
+                        principalTable: "Sources",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Models_UserProfiles_UserProfileId",
+                        column: x => x.UserProfileId,
+                        principalTable: "UserProfiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ModelPapers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ModelId = table.Column<int>(type: "integer", nullable: false),
+                    PaperId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ModelPapers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ModelPapers_Models_ModelId",
+                        column: x => x.ModelId,
+                        principalTable: "Models",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ModelPapers_Papers_PaperId",
+                        column: x => x.PaperId,
+                        principalTable: "Papers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
@@ -263,7 +299,7 @@ namespace OrigamiHelper.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "d6284a53-5af8-458c-a56c-84bd3858f4ff", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAENXZEk/YMlw9uQiuGu+aDy5vkwHDJHkwAYRswuT7X2YLygjrtaQQir6wSTEYiHvxiA==", null, false, "de3fab51-cd10-4b61-b28a-9228c2d5cd80", false, "Administrator" });
+                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "12b2b863-7905-41f9-840e-a29d24344d09", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEHF9tRwKPrYi1jfZAh1WABfAt/smNQuC7qVkQjAnVwjuFnDWP/Dd7w1Oc7W+95weBg==", null, false, "794cef68-1b16-42a4-bcc4-dbb8acb1d37a", false, "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "Complexities",
@@ -276,25 +312,6 @@ namespace OrigamiHelper.Migrations
                     { 4, "High Intermediate" },
                     { 5, "Complex" },
                     { 6, "Super Complex" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "ModelPapers",
-                columns: new[] { "Id", "ModelId", "PaperId" },
-                values: new object[,]
-                {
-                    { 1, 1, 1 },
-                    { 2, 2, 3 },
-                    { 3, 2, 2 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Models",
-                columns: new[] { "Id", "Artist", "ComplexityId", "CreatedAt", "CreatorId", "ModelImg", "PaperId", "SourceId", "StepCount", "Title" },
-                values: new object[,]
-                {
-                    { 1, "Robert Lang", 1, new DateTime(2025, 6, 16, 19, 17, 0, 532, DateTimeKind.Utc).AddTicks(4789), 1, "crane.png", 1, 1, 20, "Dancing Crane" },
-                    { 2, "Satoshi Kamiya", 6, new DateTime(2025, 6, 16, 19, 17, 0, 532, DateTimeKind.Utc).AddTicks(4795), 1, "dragon.png", 3, 2, 120, "Ancient Dragon" }
                 });
 
             migrationBuilder.InsertData(
@@ -325,6 +342,25 @@ namespace OrigamiHelper.Migrations
                 table: "UserProfiles",
                 columns: new[] { "Id", "Address", "FirstName", "IdentityUserId", "LastName" },
                 values: new object[] { 1, "101 Main Street", "Admina", "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", "Strator" });
+
+            migrationBuilder.InsertData(
+                table: "Models",
+                columns: new[] { "Id", "Artist", "ComplexityId", "CreatedAt", "ModelImg", "PaperId", "SourceId", "StepCount", "Title", "UserProfileId" },
+                values: new object[,]
+                {
+                    { 1, "Robert Lang", 1, new DateTime(2025, 6, 17, 15, 33, 59, 853, DateTimeKind.Utc).AddTicks(6314), "crane.png", 1, 1, 20, "Dancing Crane", 1 },
+                    { 2, "Satoshi Kamiya", 6, new DateTime(2025, 6, 17, 15, 33, 59, 853, DateTimeKind.Utc).AddTicks(6318), "dragon.png", 3, 2, 120, "Ancient Dragon", 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ModelPapers",
+                columns: new[] { "Id", "ModelId", "PaperId" },
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 2, 3 },
+                    { 3, 2, 2 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -364,6 +400,36 @@ namespace OrigamiHelper.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_ModelPapers_ModelId",
+                table: "ModelPapers",
+                column: "ModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ModelPapers_PaperId",
+                table: "ModelPapers",
+                column: "PaperId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Models_ComplexityId",
+                table: "Models",
+                column: "ComplexityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Models_PaperId",
+                table: "Models",
+                column: "PaperId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Models_SourceId",
+                table: "Models",
+                column: "SourceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Models_UserProfileId",
+                table: "Models",
+                column: "UserProfileId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserProfiles_IdentityUserId",
                 table: "UserProfiles",
                 column: "IdentityUserId");
@@ -388,13 +454,16 @@ namespace OrigamiHelper.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Complexities");
-
-            migrationBuilder.DropTable(
                 name: "ModelPapers");
 
             migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
                 name: "Models");
+
+            migrationBuilder.DropTable(
+                name: "Complexities");
 
             migrationBuilder.DropTable(
                 name: "Papers");
@@ -404,9 +473,6 @@ namespace OrigamiHelper.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserProfiles");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

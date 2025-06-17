@@ -36,6 +36,12 @@ public class ModelController : ControllerBase
     {
         Model model = _dbContext
             .Models
+            .Include(m => m.UserProfile)
+            .Include(m => m.Complexity)
+            .Include(m => m.Paper)
+            .Include(m => m.Source)
+            .Include(m => m.ModelPapers)
+                .ThenInclude(mp => mp.Paper)
             .SingleOrDefault(m => m.Id == id);
 
         if (model == null)
@@ -45,4 +51,5 @@ public class ModelController : ControllerBase
 
         return Ok(model);
     }
+
 }

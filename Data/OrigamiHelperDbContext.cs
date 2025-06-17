@@ -86,7 +86,7 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
                 PaperId = 1,
                 SourceId = 1,
                 StepCount = 20,
-                CreatorId = 1,
+                UserProfileId = 1,
                 CreatedAt = DateTime.UtcNow,
                 ModelImg = "crane.png",
                 Artist = "Robert Lang"
@@ -99,7 +99,7 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
                 PaperId = 3,
                 SourceId = 2,
                 StepCount = 120,
-                CreatorId = 1,
+                UserProfileId = 1,
                 CreatedAt = DateTime.UtcNow,
                 ModelImg = "dragon.png",
                 Artist = "Satoshi Kamiya"
