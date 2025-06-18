@@ -15,5 +15,5 @@ public class ModelDTO
     public DateTime CreatedAt { get; set; }
     public string ModelImg { get; set; }
     public string Artist { get; set; }
-    public List<ModelPaperDTO>? ModelPapers { get; set; }
+    public List<ModelPaperDTO> ModelPapers { get; set; }
 }

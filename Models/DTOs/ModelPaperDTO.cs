@@ -5,7 +5,6 @@ public class ModelPaperDTO
 {
     public int Id { get; set; }
     public int ModelId { get; set; }
-    public ModelDTO Model { get; set; }
     public int PaperId { get; set; }
-    public PaperDTO Paper { get; set; }
+    public PaperDTO? Paper { get; set; }
 }

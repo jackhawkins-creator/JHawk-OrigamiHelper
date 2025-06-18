@@ -30,4 +30,42 @@ public class UserProfileController : ControllerBase
         }
         return Ok(userProfile);
     }
+
+    //PUT Update profile
+    //Raw Body Test Data:
+    /*
+    {
+    "firstName": "Ada",
+    "lastName": "Lovelace",
+    "address": "123 Mathematics Blvd"
+    }
+    */
+    [HttpPut("me")]
+    //[Authorize]
+    public IActionResult UpdateCurrentUserProfile([FromBody] UserProfile updatedProfile)
+    {
+        string firebaseId = User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+
+        if (firebaseId == null)
+        {
+            return Unauthorized();
+        }
+
+        UserProfile userProfile = _dbContext.UserProfiles.FirstOrDefault(up => up.IdentityUserId == firebaseId);
+
+        if (userProfile == null)
+        {
+            return NotFound("User profile not found.");
+        }
+
+        // Update relevant fields only (protect IdentityUserId and Id)
+        userProfile.FirstName = updatedProfile.FirstName;
+        userProfile.LastName = updatedProfile.LastName;
+        userProfile.Address = updatedProfile.Address;
+
+        _dbContext.SaveChanges();
+
+        return NoContent();
+    }
+
 }

@@ -15,5 +15,5 @@ public class Model
     public DateTime CreatedAt { get; set; }
     public string ModelImg { get; set; }
     public string Artist { get; set; }
-    public List<ModelPaper>? ModelPapers { get; set; }
+    public List<ModelPaper> ModelPapers { get; set; }
 }
