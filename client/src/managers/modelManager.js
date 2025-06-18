@@ -33,3 +33,7 @@ export const deleteModel = (id) => {
     method: "DELETE"
   });
 };
+
+export const getModelsByUserId = (userId) => {
+  return fetch(`/api/model/user/${userId}`).then((res) => res.json());
+};

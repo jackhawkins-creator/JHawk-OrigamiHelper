@@ -176,5 +176,29 @@ public class ModelController : ControllerBase
         return NoContent();
     }
 
+    // GET: api/model/user/{userId}
+    [HttpGet("user/{userId}")]
+    //[Authorize]
+    public IActionResult GetModelsByUserId(int userId)
+    {
+        var models = _dbContext.Models
+            .Include(m => m.UserProfile)
+            .Include(m => m.Complexity)
+            .Include(m => m.Source)
+            .Include(m => m.ModelPapers)
+                .ThenInclude(mp => mp.Paper)
+            .Where(m => m.UserProfileId == userId)
+            .OrderByDescending(m => m.CreatedAt)
+            .ToList();
+
+        if (models == null || !models.Any())
+        {
+            return NotFound($"No models found for userId: {userId}");
+        }
+
+        return Ok(models);
+    }
+
+
 
 }
