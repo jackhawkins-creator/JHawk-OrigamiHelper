@@ -27,4 +27,17 @@ public class SourceController : ControllerBase
             .Sources
             .ToList());
     }
+
+    //GET single source by id
+    [HttpGet("sources/{id}")]
+    //[Authorize]
+    public IActionResult GetSourceById(int id)
+    {
+        Source source = _dbContext.Sources.FirstOrDefault(p => p.Id == id);
+        if (source == null)
+        {
+            return NotFound();
+        }
+        return Ok(source);
+    }
 }

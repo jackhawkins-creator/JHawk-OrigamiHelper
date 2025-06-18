@@ -12,7 +12,7 @@ using OrigamiHelper.Data;
 namespace OrigamiHelper.Migrations
 {
     [DbContext(typeof(OrigamiHelperDbContext))]
-    [Migration("20250617153400_InitialCreate")]
+    [Migration("20250618152558_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -152,13 +152,13 @@ namespace OrigamiHelper.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "12b2b863-7905-41f9-840e-a29d24344d09",
+                            ConcurrencyStamp = "e323a047-3895-43b1-9a37-badbcc1cca88",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEHF9tRwKPrYi1jfZAh1WABfAt/smNQuC7qVkQjAnVwjuFnDWP/Dd7w1Oc7W+95weBg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHzPvxgXz4PgNKMcd+h/fTE6Rldt5J0ttgf0SvYChPCkRSibzovv7XpbOtvJ4pBpdg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "794cef68-1b16-42a4-bcc4-dbb8acb1d37a",
+                            SecurityStamp = "cab527a7-d1b8-4704-a8f3-6948961d04ef",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -323,9 +323,6 @@ namespace OrigamiHelper.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("PaperId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("SourceId")
                         .HasColumnType("integer");
 
@@ -343,8 +340,6 @@ namespace OrigamiHelper.Migrations
 
                     b.HasIndex("ComplexityId");
 
-                    b.HasIndex("PaperId");
-
                     b.HasIndex("SourceId");
 
                     b.HasIndex("UserProfileId");
@@ -357,9 +352,8 @@ namespace OrigamiHelper.Migrations
                             Id = 1,
                             Artist = "Robert Lang",
                             ComplexityId = 1,
-                            CreatedAt = new DateTime(2025, 6, 17, 15, 33, 59, 853, DateTimeKind.Utc).AddTicks(6314),
+                            CreatedAt = new DateTime(2025, 6, 18, 15, 25, 58, 441, DateTimeKind.Utc).AddTicks(1955),
                             ModelImg = "crane.png",
-                            PaperId = 1,
                             SourceId = 1,
                             StepCount = 20,
                             Title = "Dancing Crane",
@@ -370,9 +364,8 @@ namespace OrigamiHelper.Migrations
                             Id = 2,
                             Artist = "Satoshi Kamiya",
                             ComplexityId = 6,
-                            CreatedAt = new DateTime(2025, 6, 17, 15, 33, 59, 853, DateTimeKind.Utc).AddTicks(6318),
+                            CreatedAt = new DateTime(2025, 6, 18, 15, 25, 58, 441, DateTimeKind.Utc).AddTicks(1959),
                             ModelImg = "dragon.png",
-                            PaperId = 3,
                             SourceId = 2,
                             StepCount = 120,
                             Title = "Ancient Dragon",
@@ -586,12 +579,6 @@ namespace OrigamiHelper.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OrigamiHelper.Models.Paper", "Paper")
-                        .WithMany()
-                        .HasForeignKey("PaperId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("OrigamiHelper.Models.Source", "Source")
                         .WithMany()
                         .HasForeignKey("SourceId")
@@ -605,8 +592,6 @@ namespace OrigamiHelper.Migrations
                         .IsRequired();
 
                     b.Navigation("Complexity");
-
-                    b.Navigation("Paper");
 
                     b.Navigation("Source");
 

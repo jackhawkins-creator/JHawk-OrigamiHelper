@@ -27,4 +27,17 @@ public class ComplexityController : ControllerBase
             .Complexities
             .ToList());
     }
+
+    //GET single complexity by id
+    [HttpGet("complexities/{id}")]
+    //[Authorize]
+    public IActionResult GetComplexityById(int id)
+    {
+        Complexity complexity = _dbContext.Complexities.FirstOrDefault(p => p.Id == id);
+        if (complexity == null)
+        {
+            return NotFound();
+        }
+        return Ok(complexity);
+    }
 }

@@ -27,4 +27,17 @@ public class PaperController : ControllerBase
             .Papers
             .ToList());
     }
+
+    //GET single Paper by id
+    [HttpGet("papers/{id}")]
+    //[Authorize]
+    public IActionResult GetPaperById(int id)
+    {
+        Paper paper = _dbContext.Papers.FirstOrDefault(p => p.Id == id);
+        if (paper == null)
+        {
+            return NotFound();
+        }
+        return Ok(paper);
+    }
 }

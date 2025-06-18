@@ -38,7 +38,6 @@ public class ModelController : ControllerBase
             .Models
             .Include(m => m.UserProfile)
             .Include(m => m.Complexity)
-            .Include(m => m.Paper)
             .Include(m => m.Source)
             .Include(m => m.ModelPapers)
                 .ThenInclude(mp => mp.Paper)
@@ -50,6 +49,54 @@ public class ModelController : ControllerBase
         }
 
         return Ok(model);
+    }
+
+    //POST Model
+    //Raw Body Test Data:
+    /*
+    {
+    "title": "Flapping Bird",
+    "complexityId": 3,
+    "sourceId": 1,
+    "stepCount": 45,
+    "userProfileId": 1,
+    "modelImg": "flapping_bird.png",
+    "artist": "Unknown"
+    }
+    */
+    [HttpPost]
+    //[Authorize]
+    public IActionResult CreateModel([FromBody] Model model)
+    {
+        if (model == null)
+        {
+            return BadRequest("Model data is required");
+        }
+
+        model.CreatedAt = DateTime.UtcNow;
+
+        _dbContext.Models.Add(model);
+        _dbContext.SaveChanges();
+
+        return Created($"/api/model/{model.Id}", model);
+    }
+
+    //DELETE Model
+    [HttpDelete("{id}")]
+    //[Authorize]
+    public IActionResult DeleteModel(int id)
+    {
+        Model model = _dbContext.Models.SingleOrDefault(o => o.Id == id);
+
+        if (model == null)
+        {
+            return NotFound();
+        }
+
+        _dbContext.Models.Remove(model);
+        _dbContext.SaveChanges();
+
+        return NoContent();
     }
 
 }

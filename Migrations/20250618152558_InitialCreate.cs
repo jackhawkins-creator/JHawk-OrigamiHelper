@@ -228,7 +228,6 @@ namespace OrigamiHelper.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "text", nullable: false),
                     ComplexityId = table.Column<int>(type: "integer", nullable: false),
-                    PaperId = table.Column<int>(type: "integer", nullable: false),
                     SourceId = table.Column<int>(type: "integer", nullable: false),
                     StepCount = table.Column<int>(type: "integer", nullable: false),
                     UserProfileId = table.Column<int>(type: "integer", nullable: false),
@@ -243,12 +242,6 @@ namespace OrigamiHelper.Migrations
                         name: "FK_Models_Complexities_ComplexityId",
                         column: x => x.ComplexityId,
                         principalTable: "Complexities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Models_Papers_PaperId",
-                        column: x => x.PaperId,
-                        principalTable: "Papers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -299,7 +292,7 @@ namespace OrigamiHelper.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "12b2b863-7905-41f9-840e-a29d24344d09", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEHF9tRwKPrYi1jfZAh1WABfAt/smNQuC7qVkQjAnVwjuFnDWP/Dd7w1Oc7W+95weBg==", null, false, "794cef68-1b16-42a4-bcc4-dbb8acb1d37a", false, "Administrator" });
+                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "e323a047-3895-43b1-9a37-badbcc1cca88", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEHzPvxgXz4PgNKMcd+h/fTE6Rldt5J0ttgf0SvYChPCkRSibzovv7XpbOtvJ4pBpdg==", null, false, "cab527a7-d1b8-4704-a8f3-6948961d04ef", false, "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "Complexities",
@@ -345,11 +338,11 @@ namespace OrigamiHelper.Migrations
 
             migrationBuilder.InsertData(
                 table: "Models",
-                columns: new[] { "Id", "Artist", "ComplexityId", "CreatedAt", "ModelImg", "PaperId", "SourceId", "StepCount", "Title", "UserProfileId" },
+                columns: new[] { "Id", "Artist", "ComplexityId", "CreatedAt", "ModelImg", "SourceId", "StepCount", "Title", "UserProfileId" },
                 values: new object[,]
                 {
-                    { 1, "Robert Lang", 1, new DateTime(2025, 6, 17, 15, 33, 59, 853, DateTimeKind.Utc).AddTicks(6314), "crane.png", 1, 1, 20, "Dancing Crane", 1 },
-                    { 2, "Satoshi Kamiya", 6, new DateTime(2025, 6, 17, 15, 33, 59, 853, DateTimeKind.Utc).AddTicks(6318), "dragon.png", 3, 2, 120, "Ancient Dragon", 1 }
+                    { 1, "Robert Lang", 1, new DateTime(2025, 6, 18, 15, 25, 58, 441, DateTimeKind.Utc).AddTicks(1955), "crane.png", 1, 20, "Dancing Crane", 1 },
+                    { 2, "Satoshi Kamiya", 6, new DateTime(2025, 6, 18, 15, 25, 58, 441, DateTimeKind.Utc).AddTicks(1959), "dragon.png", 2, 120, "Ancient Dragon", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -415,11 +408,6 @@ namespace OrigamiHelper.Migrations
                 column: "ComplexityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Models_PaperId",
-                table: "Models",
-                column: "PaperId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Models_SourceId",
                 table: "Models",
                 column: "SourceId");
@@ -463,10 +451,10 @@ namespace OrigamiHelper.Migrations
                 name: "Models");
 
             migrationBuilder.DropTable(
-                name: "Complexities");
+                name: "Papers");
 
             migrationBuilder.DropTable(
-                name: "Papers");
+                name: "Complexities");
 
             migrationBuilder.DropTable(
                 name: "Sources");
