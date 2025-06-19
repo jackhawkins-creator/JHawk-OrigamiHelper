@@ -4,6 +4,7 @@ import Login from "./auth/Login";
 import Register from "./auth/Register";
 import ModelList from "./models/ModelList";
 import HomePage from "./HomePage";
+import CreateModel from "./models/CreateModel";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -22,6 +23,14 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
               <ModelList />
+            </AuthorizedRoute>
+          }
+        />
+        <Route
+          path="models/create"
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <CreateModel loggedInUser={loggedInUser} />
             </AuthorizedRoute>
           }
         />

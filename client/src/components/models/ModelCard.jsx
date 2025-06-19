@@ -16,9 +16,7 @@ export default function ModelCard({ model }) {
           {model.artist}
         </CardSubtitle>
         <CardText>
-          Steps: {model.stepCount}<br />
-          Complexity ID: {model.complexityId}<br />
-          Paper ID: {model.paperId}
+          Steps: {model.stepCount}
         </CardText>
       </CardBody>
     </Card>
