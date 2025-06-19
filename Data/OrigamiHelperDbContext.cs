@@ -87,7 +87,7 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
                 StepCount = 20,
                 UserProfileId = 1,
                 CreatedAt = DateTime.UtcNow,
-                ModelImg = "crane.png",
+                ModelImg = "https://live.staticflickr.com/3164/2544886565_4b3f1713b8_z.jpg",
                 Artist = "Robert Lang"
             },
             new Model
@@ -99,7 +99,7 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
                 StepCount = 120,
                 UserProfileId = 1,
                 CreatedAt = DateTime.UtcNow,
-                ModelImg = "dragon.png",
+                ModelImg = "https://pbs.twimg.com/media/EXtqDnmVAAIVYlU.jpg",
                 Artist = "Satoshi Kamiya"
             }
         );

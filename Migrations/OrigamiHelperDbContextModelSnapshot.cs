@@ -149,13 +149,13 @@ namespace OrigamiHelper.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e323a047-3895-43b1-9a37-badbcc1cca88",
+                            ConcurrencyStamp = "a7f063d9-97a8-4388-b938-2637c3e358ba",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEHzPvxgXz4PgNKMcd+h/fTE6Rldt5J0ttgf0SvYChPCkRSibzovv7XpbOtvJ4pBpdg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEK4UaJ8VWDVIfJNdvvuNAj7lMuplaWYy+etaobXKEeD2xingHuTkZx4F9sRecidCQA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cab527a7-d1b8-4704-a8f3-6948961d04ef",
+                            SecurityStamp = "0a7f7f26-4f75-4c6b-b4ba-963fbb9e69db",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -349,8 +349,8 @@ namespace OrigamiHelper.Migrations
                             Id = 1,
                             Artist = "Robert Lang",
                             ComplexityId = 1,
-                            CreatedAt = new DateTime(2025, 6, 18, 15, 25, 58, 441, DateTimeKind.Utc).AddTicks(1955),
-                            ModelImg = "crane.png",
+                            CreatedAt = new DateTime(2025, 6, 19, 18, 58, 19, 267, DateTimeKind.Utc).AddTicks(7962),
+                            ModelImg = "https://live.staticflickr.com/3164/2544886565_4b3f1713b8_z.jpg",
                             SourceId = 1,
                             StepCount = 20,
                             Title = "Dancing Crane",
@@ -361,8 +361,8 @@ namespace OrigamiHelper.Migrations
                             Id = 2,
                             Artist = "Satoshi Kamiya",
                             ComplexityId = 6,
-                            CreatedAt = new DateTime(2025, 6, 18, 15, 25, 58, 441, DateTimeKind.Utc).AddTicks(1959),
-                            ModelImg = "dragon.png",
+                            CreatedAt = new DateTime(2025, 6, 19, 18, 58, 19, 267, DateTimeKind.Utc).AddTicks(7967),
+                            ModelImg = "https://pbs.twimg.com/media/EXtqDnmVAAIVYlU.jpg",
                             SourceId = 2,
                             StepCount = 120,
                             Title = "Ancient Dragon",
@@ -493,7 +493,6 @@ namespace OrigamiHelper.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("IdentityUserId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("LastName")
@@ -597,7 +596,7 @@ namespace OrigamiHelper.Migrations
 
             modelBuilder.Entity("OrigamiHelper.Models.ModelPaper", b =>
                 {
-                    b.HasOne("OrigamiHelper.Models.Model", "Model")
+                    b.HasOne("OrigamiHelper.Models.Model", null)
                         .WithMany("ModelPapers")
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -609,8 +608,6 @@ namespace OrigamiHelper.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Model");
-
                     b.Navigation("Paper");
                 });
 
@@ -618,9 +615,7 @@ namespace OrigamiHelper.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
-                        .HasForeignKey("IdentityUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdentityUserId");
 
                     b.Navigation("IdentityUser");
                 });
