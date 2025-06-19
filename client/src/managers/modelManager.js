@@ -37,3 +37,7 @@ export const deleteModel = (id) => {
 export const getModelsByUserId = (userId) => {
   return fetch(`/api/model/user/${userId}`).then((res) => res.json());
 };
+
+export const getRecentModels = () => {
+  return fetch("/api/model/recent").then((res) => res.json());
+};
