@@ -201,6 +201,7 @@ public class ModelController : ControllerBase
 
     // GET: api/model/recent
     [HttpGet("recent")]
+    //[Authorize]
     public IActionResult GetRecentModels()
     {
         List<Model> recentModels = _dbContext.Models
@@ -210,5 +211,28 @@ public class ModelController : ControllerBase
 
         return Ok(recentModels);
     }
+
+    [HttpPost("upload")]
+    [RequestSizeLimit(10_000_000)] // limit to ~10MB
+    public async Task<IActionResult> UploadImage(IFormFile file)
+    {
+        if (file == null || file.Length == 0)
+            return BadRequest("No file uploaded");
+
+        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+        if (!Directory.Exists(uploadsFolder))
+            Directory.CreateDirectory(uploadsFolder);
+
+        var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await file.CopyToAsync(stream);
+        }
+
+        return Ok(new { fileName = uniqueFileName });
+    }
+
 
 }
