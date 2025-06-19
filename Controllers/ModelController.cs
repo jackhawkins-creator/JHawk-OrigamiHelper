@@ -199,6 +199,16 @@ public class ModelController : ControllerBase
         return Ok(models);
     }
 
+    // GET: api/model/recent
+    [HttpGet("recent")]
+    public IActionResult GetRecentModels()
+    {
+        List<Model> recentModels = _dbContext.Models
+            .OrderByDescending(m => m.CreatedAt)
+            .Take(2)
+            .ToList();
 
+        return Ok(recentModels);
+    }
 
 }
