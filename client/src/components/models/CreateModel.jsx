@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import {
-  Button, Form, FormGroup, Label, Input, FormText, Row, Col
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormText,
+  Row,
+  Col,
 } from "reactstrap";
 import { getComplexities } from "../../managers/complexityManager";
 import { getSources } from "../../managers/sourceManager";
@@ -21,6 +28,29 @@ export default function CreateModel({ loggedInUser }) {
   const [complexities, setComplexities] = useState([]);
   const [sources, setSources] = useState([]);
   const [papers, setPapers] = useState([]);
+
+  const [imageFile, setImageFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    setImageFile(e.target.files[0]);
+  };
+
+  const uploadImage = async () => {
+    const formData = new FormData();
+    formData.append("file", imageFile);
+
+    const res = await fetch("/api/model/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to upload image");
+    }
+
+    const data = await res.json();
+    return data.fileName; // returns uploaded file name
+  };
 
   useEffect(() => {
     getComplexities().then(setComplexities);
@@ -44,8 +74,19 @@ export default function CreateModel({ loggedInUser }) {
     setSelectedPapers(updated);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    let uploadedFileName = "";
+    if (imageFile) {
+      try {
+        uploadedFileName = await uploadImage();
+      } catch (error) {
+        console.error(error);
+        alert("Image upload failed.");
+        return;
+      }
+    }
 
     const model = {
       title,
@@ -54,8 +95,8 @@ export default function CreateModel({ loggedInUser }) {
       complexityId: parseInt(complexityId),
       stepCount: parseInt(stepCount),
       userProfileId: loggedInUser.id,
-      modelImg, // just file name or placeholder string
-      modelPapers: selectedPapers.map(pid => ({ paperId: parseInt(pid) })),
+      modelImg: `/Images/${uploadedFileName}`,
+      modelPapers: selectedPapers.map((pid) => ({ paperId: parseInt(pid) })),
     };
 
     createModel(model).then(() => navigate("/models"));
@@ -67,37 +108,63 @@ export default function CreateModel({ loggedInUser }) {
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label for="title">Model Title</Label>
-          <Input id="title" value={title} onChange={e => setTitle(e.target.value)} required />
+          <Input
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
         </FormGroup>
 
         <FormGroup>
           <Label for="artist">Artist</Label>
-          <Input id="artist" value={artist} onChange={e => setArtist(e.target.value)} required />
+          <Input
+            id="artist"
+            value={artist}
+            onChange={(e) => setArtist(e.target.value)}
+            required
+          />
         </FormGroup>
 
         <FormGroup>
           <Label for="sourceId">Source</Label>
-          <Input type="select" id="sourceId" value={sourceId} onChange={e => setSourceId(e.target.value)} required>
+          <Input
+            type="select"
+            id="sourceId"
+            value={sourceId}
+            onChange={(e) => setSourceId(e.target.value)}
+            required
+          >
             <option value="">-- Select Source --</option>
-            {sources.map(src => <option key={src.id} value={src.id}>{src.title}</option>)}
+            {sources.map((src) => (
+              <option key={src.id} value={src.id}>
+                {src.title}
+              </option>
+            ))}
           </Input>
         </FormGroup>
 
         <FormGroup>
           <Label for="stepCount">Step Count</Label>
-          <Input type="number" id="stepCount" value={stepCount} onChange={e => setStepCount(e.target.value)} required />
+          <Input
+            type="number"
+            id="stepCount"
+            value={stepCount}
+            onChange={(e) => setStepCount(e.target.value)}
+            required
+          />
         </FormGroup>
 
         <FormGroup tag="fieldset">
           <legend>Complexity</legend>
-          {complexities.map(c => (
+          {complexities.map((c) => (
             <FormGroup check key={c.id}>
               <Input
                 type="radio"
                 name="complexity"
                 value={c.id}
                 checked={parseInt(complexityId) === c.id}
-                onChange={e => setComplexityId(e.target.value)}
+                onChange={(e) => setComplexityId(e.target.value)}
               />
               <Label check>{c.difficulty}</Label>
             </FormGroup>
@@ -112,27 +179,37 @@ export default function CreateModel({ loggedInUser }) {
                 <Input
                   type="select"
                   value={paperId}
-                  onChange={e => handlePaperChange(index, e.target.value)}
+                  onChange={(e) => handlePaperChange(index, e.target.value)}
                 >
                   <option value="">-- Select Paper --</option>
-                  {papers.map(p => <option key={p.id} value={p.id}>{p.brand}</option>)}
+                  {papers.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.brand}
+                    </option>
+                  ))}
                 </Input>
               </Col>
               <Col md={2}>
-                <Button color="danger" onClick={() => handleRemovePaper(index)}>Remove</Button>
+                <Button color="danger" onClick={() => handleRemovePaper(index)}>
+                  Remove
+                </Button>
               </Col>
             </Row>
           ))}
-          <Button color="secondary" onClick={handleAddPaper}>Add Paper</Button>
+          <Button color="secondary" onClick={handleAddPaper}>
+            Add Paper
+          </Button>
         </FormGroup>
 
         <FormGroup>
-          <Label for="modelImg">Model Image (filename only)</Label>
-          <Input id="modelImg" value={modelImg} onChange={e => setModelImg(e.target.value)} />
-          <FormText color="muted">Just use the file name for now (e.g. "dragon.png")</FormText>
+          <Label for="modelImg">Model Image</Label>
+          <Input type="file" id="modelImg" onChange={handleFileChange} />
+          <FormText color="muted">Upload an image (JPG, PNG, etc.)</FormText>
         </FormGroup>
 
-        <Button color="primary" type="submit">Create Model</Button>
+        <Button color="primary" type="submit">
+          Create Model
+        </Button>
       </Form>
     </div>
   );

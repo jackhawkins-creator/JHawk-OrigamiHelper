@@ -206,32 +206,38 @@ public class ModelController : ControllerBase
     {
         List<Model> recentModels = _dbContext.Models
             .OrderByDescending(m => m.CreatedAt)
-            .Take(2)
+            .Take(6)
             .ToList();
 
         return Ok(recentModels);
     }
 
     [HttpPost("upload")]
-    [RequestSizeLimit(10_000_000)] // limit to ~10MB
+    //[Authorize]
+    [RequestSizeLimit(10_000_000)] // 10MB limit
     public async Task<IActionResult> UploadImage(IFormFile file)
     {
         if (file == null || file.Length == 0)
-            return BadRequest("No file uploaded");
+        {
+            return BadRequest("File is required.");
+        }
 
-        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
-        if (!Directory.Exists(uploadsFolder))
-            Directory.CreateDirectory(uploadsFolder);
+        var imagesPath = Path.Combine(Directory.GetCurrentDirectory(), "Images");
 
-        var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+        if (!Directory.Exists(imagesPath))
+        {
+            Directory.CreateDirectory(imagesPath);
+        }
+
+        var fileName = Path.GetFileName(file.FileName);
+        var filePath = Path.Combine(imagesPath, fileName);
 
         using (var stream = new FileStream(filePath, FileMode.Create))
         {
             await file.CopyToAsync(stream);
         }
 
-        return Ok(new { fileName = uniqueFileName });
+        return Ok(new { fileName });
     }
 
 
