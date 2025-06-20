@@ -1,4 +1,3 @@
-// client/src/components/models/CreateModel.jsx
 import { useEffect, useState } from "react";
 import {
   Button, Form, FormGroup, Label, Input, FormText, Row, Col

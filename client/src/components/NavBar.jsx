@@ -12,10 +12,13 @@ import {
 } from "reactstrap";
 import { logout } from "../managers/authManager";
 
+
 export default function NavBar({ loggedInUser, setLoggedInUser }) {
   const [open, setOpen] = useState(false);
 
+
   const toggleNavbar = () => setOpen(!open);
+
 
   return (
     <div>
@@ -23,6 +26,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
         <NavbarBrand className="mr-auto" tag={RRNavLink} to="/">
           Origami Helper
         </NavbarBrand>
+
 
         {loggedInUser ? (
           <>
@@ -34,8 +38,14 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                     Models
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/models/create">
+                    Create Model
+                  </NavLink>
+                </NavItem>
               </Nav>
             </Collapse>
+
 
             <Button
               color="primary"
