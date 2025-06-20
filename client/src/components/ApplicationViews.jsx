@@ -6,6 +6,7 @@ import ModelList from "./models/ModelList";
 import HomePage from "./HomePage";
 import CreateModel from "./models/CreateModel";
 import ModelDetails from "./models/ModelDetails";
+import UserProfile from "./profiles/UserProfileDetails";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -41,6 +42,15 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
               <ModelDetails loggedInUser={loggedInUser} />
+            </AuthorizedRoute>
+          }
+        />
+
+        <Route
+          path="users/:id"
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <UserProfile />
             </AuthorizedRoute>
           }
         />

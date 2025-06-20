@@ -19,7 +19,7 @@ public class UserProfileController : ControllerBase
     }
 
     //GET single profile by id
-    [HttpGet("userprofiles/{id}")]
+    [HttpGet("{id}")]
     //[Authorize]
     public IActionResult GetUserProfileById(int id)
     {

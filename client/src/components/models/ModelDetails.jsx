@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Card, CardBody, CardTitle, CardText, CardSubtitle, Spinner } from "reactstrap";
+import { Link, useParams } from "react-router-dom";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardText,
+  CardSubtitle,
+  Spinner,
+} from "reactstrap";
 import { getModelById } from "../../managers/modelManager";
 
 export default function ModelDetails() {
@@ -36,10 +43,13 @@ export default function ModelDetails() {
     complexity,
     source,
     modelPapers,
-    userProfile
+    userProfile,
   } = model;
 
-  const paperBrands = modelPapers?.map(mp => mp.paper?.brand).filter(Boolean).join(", ");
+  const paperBrands = modelPapers
+    ?.map((mp) => mp.paper?.brand)
+    .filter(Boolean)
+    .join(", ");
 
   return (
     <Card className="mt-4">
@@ -53,11 +63,25 @@ export default function ModelDetails() {
         <CardSubtitle className="mb-2 text-muted">
           by {artist || "Unknown Artist"}
         </CardSubtitle>
-        <CardText><strong>Uploaded by:</strong> {userProfile?.firstName} {userProfile?.lastName}</CardText>
-        <CardText><strong>Complexity:</strong> {complexity?.difficulty}</CardText>
-        <CardText><strong>Recommended Paper(s):</strong> {paperBrands || "N/A"}</CardText>
-        <CardText><strong>Source:</strong> {source?.title}</CardText>
-        <CardText><strong>Total Steps:</strong> {stepCount}</CardText>
+        <CardText>
+          <strong>Uploaded by:</strong>{" "}
+          <Link to={`/users/${userProfile?.id}`}>
+            {userProfile?.firstName} {userProfile?.lastName}
+          </Link>
+        </CardText>
+
+        <CardText>
+          <strong>Complexity:</strong> {complexity?.difficulty}
+        </CardText>
+        <CardText>
+          <strong>Recommended Paper(s):</strong> {paperBrands || "N/A"}
+        </CardText>
+        <CardText>
+          <strong>Source:</strong> {source?.title}
+        </CardText>
+        <CardText>
+          <strong>Total Steps:</strong> {stepCount}
+        </CardText>
       </CardBody>
     </Card>
   );
