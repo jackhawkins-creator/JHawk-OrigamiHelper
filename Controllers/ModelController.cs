@@ -96,14 +96,22 @@ public class ModelController : ControllerBase
 
     //DELETE Model
     [HttpDelete("{id}")]
-    //[Authorize]
+    // [Authorize]
     public IActionResult DeleteModel(int id)
     {
         Model model = _dbContext.Models.SingleOrDefault(m => m.Id == id);
-
         if (model == null)
         {
             return NotFound();
+        }
+
+        // Get the authenticated user's IdentityUserId (if using Identity)
+        string currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        UserProfile userProfile = _dbContext.UserProfiles.SingleOrDefault(up => up.IdentityUserId == currentUserId);
+
+        if (userProfile == null || userProfile.Id != model.UserProfileId)
+        {
+            return Forbid("You can only delete your own models.");
         }
 
         _dbContext.Models.Remove(model);
@@ -111,6 +119,7 @@ public class ModelController : ControllerBase
 
         return NoContent();
     }
+
 
     //PUT Model
     //Raw Body Test Data:
