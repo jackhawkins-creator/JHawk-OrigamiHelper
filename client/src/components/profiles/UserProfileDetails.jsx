@@ -1,4 +1,3 @@
-// client/src/components/users/UserProfile.jsx
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getUserProfileById } from "../../managers/userProfileManager";
@@ -6,7 +5,7 @@ import { getModelsByUserId } from "../../managers/modelManager";
 import { Spinner } from "reactstrap";
 import ModelCard from "../models/ModelCard";
 
-export default function UserProfile() {
+export default function UserProfile({loggedInUser}) {
   const { id } = useParams();
   const [profile, setProfile] = useState(null);
   const [models, setModels] = useState([]);
@@ -42,7 +41,7 @@ export default function UserProfile() {
       <div className="row">
         {models.map(model => (
           <div key={model.id} className="col-md-4">
-            <ModelCard model={model} />
+            <ModelCard model={model} loggedInUser={loggedInUser} />
           </div>
         ))}
       </div>

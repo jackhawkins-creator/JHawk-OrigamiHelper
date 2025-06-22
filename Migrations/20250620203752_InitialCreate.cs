@@ -291,7 +291,7 @@ namespace OrigamiHelper.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "a7f063d9-97a8-4388-b938-2637c3e358ba", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEK4UaJ8VWDVIfJNdvvuNAj7lMuplaWYy+etaobXKEeD2xingHuTkZx4F9sRecidCQA==", null, false, "0a7f7f26-4f75-4c6b-b4ba-963fbb9e69db", false, "Administrator" });
+                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "8b488c37-1a5a-4322-83e7-a5fbb5c8c441", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEPcJsRtvU4li2A+mQJiw0hMaAWOtGM+yyC8BaCUgkJYQFT/jEjhXfvh3VpO7R4+Bbg==", null, false, "e1d55e6f-e759-454a-886e-c7299a5693a8", false, "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "Complexities",
@@ -340,8 +340,8 @@ namespace OrigamiHelper.Migrations
                 columns: new[] { "Id", "Artist", "ComplexityId", "CreatedAt", "ModelImg", "SourceId", "StepCount", "Title", "UserProfileId" },
                 values: new object[,]
                 {
-                    { 1, "Robert Lang", 1, new DateTime(2025, 6, 19, 18, 58, 19, 267, DateTimeKind.Utc).AddTicks(7962), "https://live.staticflickr.com/3164/2544886565_4b3f1713b8_z.jpg", 1, 20, "Dancing Crane", 1 },
-                    { 2, "Satoshi Kamiya", 6, new DateTime(2025, 6, 19, 18, 58, 19, 267, DateTimeKind.Utc).AddTicks(7967), "https://pbs.twimg.com/media/EXtqDnmVAAIVYlU.jpg", 2, 120, "Ancient Dragon", 1 }
+                    { 1, "Nguyen Hong Chuong", 4, new DateTime(2025, 6, 20, 20, 37, 52, 290, DateTimeKind.Utc).AddTicks(2152), "/Images/rat.png", 1, 20, "Cooking Rat", 1 },
+                    { 2, "Satoshi Kamiya", 6, new DateTime(2025, 6, 20, 20, 37, 52, 290, DateTimeKind.Utc).AddTicks(2160), "/Images/dragon.jpg", 2, 274, "Ancient Dragon", 1 }
                 });
 
             migrationBuilder.InsertData(

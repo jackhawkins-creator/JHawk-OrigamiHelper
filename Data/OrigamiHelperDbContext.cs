@@ -8,7 +8,7 @@ namespace OrigamiHelper.Data;
 public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
 {
     private readonly IConfiguration _configuration;
-    
+
     public DbSet<UserProfile> UserProfiles { get; set; }
     public DbSet<Model> Models { get; set; }
     public DbSet<Complexity> Complexities { get; set; }
@@ -53,6 +53,7 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
             LastName = "Strator",
             Address = "101 Main Street",
         });
+
         // Seed Complexities
         modelBuilder.Entity<Complexity>().HasData(
             new Complexity { Id = 1, Difficulty = "Simple" },
@@ -81,14 +82,14 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
             new Model
             {
                 Id = 1,
-                Title = "Dancing Crane",
-                ComplexityId = 1,
+                Title = "Cooking Rat",
+                ComplexityId = 4,
                 SourceId = 1,
                 StepCount = 20,
                 UserProfileId = 1,
                 CreatedAt = DateTime.UtcNow,
-                ModelImg = "https://live.staticflickr.com/3164/2544886565_4b3f1713b8_z.jpg",
-                Artist = "Robert Lang"
+                ModelImg = "/Images/rat.png",
+                Artist = "Nguyen Hong Chuong"
             },
             new Model
             {
@@ -96,10 +97,10 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
                 Title = "Ancient Dragon",
                 ComplexityId = 6,
                 SourceId = 2,
-                StepCount = 120,
+                StepCount = 274,
                 UserProfileId = 1,
                 CreatedAt = DateTime.UtcNow,
-                ModelImg = "https://pbs.twimg.com/media/EXtqDnmVAAIVYlU.jpg",
+                ModelImg = "/Images/dragon.jpg",
                 Artist = "Satoshi Kamiya"
             }
         );
@@ -110,6 +111,5 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
             new ModelPaper { Id = 2, ModelId = 2, PaperId = 3 },
             new ModelPaper { Id = 3, ModelId = 2, PaperId = 2 } // Dragon also works with Washi
         );
-
     }
 }
