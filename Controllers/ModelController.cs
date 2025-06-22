@@ -206,7 +206,7 @@ public class ModelController : ControllerBase
     {
         List<Model> recentModels = _dbContext.Models
             .OrderByDescending(m => m.CreatedAt)
-            .Take(6)
+            .Take(3)
             .ToList();
 
         return Ok(recentModels);

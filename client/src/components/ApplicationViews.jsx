@@ -7,6 +7,7 @@ import HomePage from "./HomePage";
 import CreateModel from "./models/CreateModel";
 import ModelDetails from "./models/ModelDetails";
 import UserProfile from "./profiles/UserProfileDetails";
+import EditModel from "./models/EditModel";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -50,7 +51,16 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           path="users/:id"
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
-              <UserProfile />
+              <UserProfile loggedInUser={loggedInUser} />
+            </AuthorizedRoute>
+          }
+        />
+
+        <Route
+          path="models/:id/edit"
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <EditModel loggedInUser={loggedInUser} />
             </AuthorizedRoute>
           }
         />
