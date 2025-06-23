@@ -23,9 +23,15 @@ public class ComplexityController : ControllerBase
     //[Authorize]
     public IActionResult GetAllComplexities()
     {
-        return Ok(_dbContext
-            .Complexities
-            .ToList());
+        List<ComplexityDTO> complexities = _dbContext.Complexities
+            .Select(c => new ComplexityDTO
+            {
+                Id = c.Id,
+                Difficulty = c.Difficulty
+            })
+            .ToList();
+
+        return Ok(complexities);
     }
 
     //GET single complexity by id
@@ -33,11 +39,20 @@ public class ComplexityController : ControllerBase
     //[Authorize]
     public IActionResult GetComplexityById(int id)
     {
-        Complexity complexity = _dbContext.Complexities.FirstOrDefault(p => p.Id == id);
+        ComplexityDTO complexity = _dbContext.Complexities
+            .Where(c => c.Id == id)
+            .Select(c => new ComplexityDTO
+            {
+                Id = c.Id,
+                Difficulty = c.Difficulty
+            })
+            .FirstOrDefault();
+
         if (complexity == null)
         {
             return NotFound();
         }
+
         return Ok(complexity);
     }
 }

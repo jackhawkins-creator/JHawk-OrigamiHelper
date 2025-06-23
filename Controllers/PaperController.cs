@@ -23,9 +23,15 @@ public class PaperController : ControllerBase
     //[Authorize]
     public IActionResult GetAllPapers()
     {
-        return Ok(_dbContext
-            .Papers
-            .ToList());
+        List<PaperDTO> papers = _dbContext.Papers
+            .Select(p => new PaperDTO
+            {
+                Id = p.Id,
+                Brand = p.Brand
+            })
+            .ToList();
+
+        return Ok(papers);
     }
 
     //GET single Paper by id
@@ -33,11 +39,20 @@ public class PaperController : ControllerBase
     //[Authorize]
     public IActionResult GetPaperById(int id)
     {
-        Paper paper = _dbContext.Papers.FirstOrDefault(p => p.Id == id);
+        PaperDTO paper = _dbContext.Papers
+            .Where(p => p.Id == id)
+            .Select(p => new PaperDTO
+            {
+                Id = p.Id,
+                Brand = p.Brand
+            })
+            .FirstOrDefault();
+
         if (paper == null)
         {
             return NotFound();
         }
+
         return Ok(paper);
     }
 }
