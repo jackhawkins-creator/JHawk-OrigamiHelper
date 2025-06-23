@@ -20,7 +20,7 @@ public class PaperController : ControllerBase
 
     //GET all papers
     [HttpGet]
-    //[Authorize]
+    [Authorize]
     public IActionResult GetAllPapers()
     {
         List<PaperDTO> papers = _dbContext.Papers
@@ -36,7 +36,7 @@ public class PaperController : ControllerBase
 
     //GET single Paper by id
     [HttpGet("papers/{id}")]
-    //[Authorize]
+    [Authorize]
     public IActionResult GetPaperById(int id)
     {
         PaperDTO paper = _dbContext.Papers

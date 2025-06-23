@@ -20,7 +20,7 @@ public class SourceController : ControllerBase
 
     //GET all sources
     [HttpGet]
-    //[Authorize]
+    [Authorize]
     public IActionResult GetAllSources()
     {
         List<SourceDTO> sources = _dbContext.Sources
@@ -36,7 +36,7 @@ public class SourceController : ControllerBase
 
     //GET single source by id
     [HttpGet("sources/{id}")]
-    //[Authorize]
+    [Authorize]
     public IActionResult GetSourceById(int id)
     {
         SourceDTO source = _dbContext.Sources

@@ -149,13 +149,13 @@ namespace OrigamiHelper.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a7f063d9-97a8-4388-b938-2637c3e358ba",
+                            ConcurrencyStamp = "ca51cbdb-ce2c-4bfe-919c-5f6c73c5a13e",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEK4UaJ8VWDVIfJNdvvuNAj7lMuplaWYy+etaobXKEeD2xingHuTkZx4F9sRecidCQA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHdRBqnLfLRtaVt2IWfbD72VICG2grERqeMKXMQUCS7O8Vsw6q1gZhgQ3fxSLB3V2w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0a7f7f26-4f75-4c6b-b4ba-963fbb9e69db",
+                            SecurityStamp = "3dba6531-1175-476e-a31e-d14900b4c5e6",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -347,13 +347,13 @@ namespace OrigamiHelper.Migrations
                         new
                         {
                             Id = 1,
-                            Artist = "Robert Lang",
-                            ComplexityId = 1,
-                            CreatedAt = new DateTime(2025, 6, 19, 18, 58, 19, 267, DateTimeKind.Utc).AddTicks(7962),
-                            ModelImg = "https://live.staticflickr.com/3164/2544886565_4b3f1713b8_z.jpg",
+                            Artist = "Nguyen Hong Chuong",
+                            ComplexityId = 4,
+                            CreatedAt = new DateTime(2025, 6, 23, 18, 25, 17, 368, DateTimeKind.Utc).AddTicks(252),
+                            ModelImg = "/Images/rat.png",
                             SourceId = 1,
                             StepCount = 20,
-                            Title = "Dancing Crane",
+                            Title = "Cooking Rat",
                             UserProfileId = 1
                         },
                         new
@@ -361,10 +361,10 @@ namespace OrigamiHelper.Migrations
                             Id = 2,
                             Artist = "Satoshi Kamiya",
                             ComplexityId = 6,
-                            CreatedAt = new DateTime(2025, 6, 19, 18, 58, 19, 267, DateTimeKind.Utc).AddTicks(7967),
-                            ModelImg = "https://pbs.twimg.com/media/EXtqDnmVAAIVYlU.jpg",
+                            CreatedAt = new DateTime(2025, 6, 23, 18, 25, 17, 368, DateTimeKind.Utc).AddTicks(257),
+                            ModelImg = "/Images/dragon.jpg",
                             SourceId = 2,
-                            StepCount = 120,
+                            StepCount = 274,
                             Title = "Ancient Dragon",
                             UserProfileId = 1
                         });
@@ -493,6 +493,7 @@ namespace OrigamiHelper.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("IdentityUserId")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("LastName")
@@ -615,7 +616,9 @@ namespace OrigamiHelper.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
-                        .HasForeignKey("IdentityUserId");
+                        .HasForeignKey("IdentityUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("IdentityUser");
                 });

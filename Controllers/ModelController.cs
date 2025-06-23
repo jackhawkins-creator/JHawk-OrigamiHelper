@@ -66,7 +66,7 @@ public class ModelController : ControllerBase
 
     //GET all models, newest to oldest
     [HttpGet]
-    //[Authorize]
+    [Authorize]
     public IActionResult GetAllModels()
     {
         List<Model> models = _dbContext.Models
@@ -84,7 +84,7 @@ public class ModelController : ControllerBase
 
     //GET single Model by id
     [HttpGet("{id}")]
-    //[Authorize]
+    [Authorize]
     public IActionResult GetById(int id)
     {
         Model model = _dbContext.Models
@@ -121,7 +121,7 @@ public class ModelController : ControllerBase
     }
     */
     [HttpPost]
-    //[Authorize]
+    [Authorize]
     public IActionResult CreateModel([FromBody] ModelDTO modelDTO)
     {
         if (modelDTO == null)
@@ -153,7 +153,7 @@ public class ModelController : ControllerBase
 
     //DELETE Model
     [HttpDelete("{id}")]
-    // [Authorize]
+    [Authorize]
     public IActionResult DeleteModel(int id)
     {
         Model model = _dbContext.Models.SingleOrDefault(m => m.Id == id);
@@ -196,7 +196,7 @@ public class ModelController : ControllerBase
     }
     */
     [HttpPut("{id}")]
-    //[Authorize]
+    [Authorize]
     public IActionResult UpdateModel(int id, [FromBody] ModelDTO modelDTO)
     {
         if (id != modelDTO.Id)
@@ -233,7 +233,7 @@ public class ModelController : ControllerBase
 
     // GET: api/model/user/{userId}
     [HttpGet("user/{userId}")]
-    //[Authorize]
+    [Authorize]
     public IActionResult GetModelsByUserId(int userId)
     {
         List<Model> models = _dbContext.Models
@@ -256,7 +256,7 @@ public class ModelController : ControllerBase
 
     // GET: api/model/recent
     [HttpGet("recent")]
-    //[Authorize]
+    [Authorize]
     public IActionResult GetRecentModels()
     {
         List<Model> recentModels = _dbContext.Models
@@ -273,7 +273,7 @@ public class ModelController : ControllerBase
     }
 
     [HttpPost("upload")]
-    //[Authorize]
+    [Authorize]
     [RequestSizeLimit(10_000_000)] // 10MB limit
     public async Task<IActionResult> UploadImage(IFormFile file)
     {

@@ -128,9 +128,8 @@ public class AuthController : ControllerBase
             Email = registration.Email
         };
 
-        var password = Encoding
-            .GetEncoding("iso-8859-1")
-            .GetString(Convert.FromBase64String(registration.Password));
+        // 🔥 FIX: password is already plain text
+        var password = registration.Password;
 
         var result = await _userManager.CreateAsync(user, password);
         if (result.Succeeded)
@@ -159,6 +158,6 @@ public class AuthController : ControllerBase
 
             return Ok();
         }
-        return StatusCode(500);
+        return StatusCode(500, result.Errors);
     }
 }

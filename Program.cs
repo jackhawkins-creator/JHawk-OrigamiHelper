@@ -41,7 +41,7 @@ builder.Services.AddIdentityCore<IdentityUser>(config =>
             {
                 //for demonstration only - change these for other projects
                 config.Password.RequireDigit = false;
-                config.Password.RequiredLength = 8;
+                config.Password.RequiredLength = 4;
                 config.Password.RequireLowercase = false;
                 config.Password.RequireNonAlphanumeric = false;
                 config.Password.RequireUppercase = false;
@@ -62,6 +62,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
