@@ -1,4 +1,11 @@
-import { Card, CardBody, CardTitle, CardText, CardSubtitle, Button } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardText,
+  CardSubtitle,
+  Button,
+} from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { deleteModel } from "../../managers/modelManager";
 
@@ -16,43 +23,37 @@ export default function ModelCard({ model, loggedInUser }) {
   };
 
   return (
-    <div>
+    <Card className="model-card h-100">
       <Link
         to={`/models/${model.id}`}
         style={{ textDecoration: "none", color: "inherit" }}
       >
-        <Card className="mb-4 hover-shadow">
-          <img
-            src={`https://localhost:5001${model.modelImg}`}
-            alt={model.title}
-            className="card-img-top"
-          />
-          <CardBody>
-            <CardTitle tag="h5">{model.title}</CardTitle>
-            <CardSubtitle className="mb-2 text-muted">{model.artist}</CardSubtitle>
-            <CardText>Steps: {model.stepCount}</CardText>
-
-            {isOwner && (
-              <>
-                <Link
-                  to={`/models/${model.id}/edit`}
-                  className="btn btn-sm btn-outline-primary me-2"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  Edit
-                </Link>
-                <Button
-                  color="danger"
-                  size="sm"
-                  onClick={handleDelete}
-                >
-                  Delete
-                </Button>
-              </>
-            )}
-          </CardBody>
-        </Card>
+        <img
+          src={`https://localhost:5001${model.modelImg}`}
+          alt={model.title}
+          className="card-img-top model-card-img"
+        />
       </Link>
-    </div>
+      <CardBody className="model-card-body d-flex flex-column">
+        <CardTitle tag="h5">{model.title}</CardTitle>
+        <CardSubtitle className="mb-2 text-muted">{model.artist}</CardSubtitle>
+        <CardText>Steps: {model.stepCount}</CardText>
+
+        {isOwner && (
+          <div className="model-card-footer mt-3">
+            <Link
+              to={`/models/${model.id}/edit`}
+              className="btn btn-sm btn-outline-primary me-2"
+              onClick={(e) => e.stopPropagation()}
+            >
+              Edit
+            </Link>
+            <Button color="danger" size="sm" onClick={handleDelete}>
+              Delete
+            </Button>
+          </div>
+        )}
+      </CardBody>
+    </Card>
   );
 }
