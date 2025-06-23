@@ -56,8 +56,9 @@ export default function ModelDetails() {
       <img
         src={`https://localhost:5001${modelImg}`}
         alt={title}
-        className="card-img-top"
+        className="card-img-top model-detail-img"
       />
+
       <CardBody>
         <CardTitle tag="h3">{title}</CardTitle>
         <CardSubtitle className="mb-2 text-muted">

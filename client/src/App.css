@@ -57,3 +57,13 @@
 .model-card-footer {
   margin-top: auto;
 }
+
+/* Standardize image size for model detail view */
+.model-detail-img {
+  max-height: 400px;
+  object-fit: contain;
+  width: 100%;
+  border-top-left-radius: 0.375rem;
+  border-top-right-radius: 0.375rem;
+  background-color: #f8f9fa; /* optional: helps with transparency */
+}
