@@ -18,15 +18,68 @@ public class ModelController : ControllerBase
         _dbContext = context;
     }
 
+    // Helper: Map Model → ModelDTO
+    private ModelDTO MapToDTO(Model model)
+    {
+        return new ModelDTO
+        {
+            Id = model.Id,
+            Title = model.Title,
+            ComplexityId = model.ComplexityId,
+            Complexity = model.Complexity == null ? null : new ComplexityDTO
+            {
+                Id = model.Complexity.Id,
+                Difficulty = model.Complexity.Difficulty
+            },
+            SourceId = model.SourceId,
+            Source = model.Source == null ? null : new SourceDTO
+            {
+                Id = model.Source.Id,
+                Title = model.Source.Title
+            },
+            StepCount = model.StepCount,
+            UserProfileId = model.UserProfileId,
+            UserProfile = model.UserProfile == null ? null : new UserProfileDTO
+            {
+                Id = model.UserProfile.Id,
+                FirstName = model.UserProfile.FirstName,
+                LastName = model.UserProfile.LastName,
+                Address = model.UserProfile.Address,
+                IdentityUserId = model.UserProfile.IdentityUserId
+            },
+            CreatedAt = model.CreatedAt,
+            ModelImg = model.ModelImg,
+            Artist = model.Artist,
+            ModelPapers = model.ModelPapers?.Select(mp => new ModelPaperDTO
+            {
+                Id = mp.Id,
+                ModelId = mp.ModelId,
+                PaperId = mp.PaperId,
+                Paper = mp.Paper == null ? null : new PaperDTO
+                {
+                    Id = mp.Paper.Id,
+                    Brand = mp.Paper.Brand
+                }
+            }).ToList() ?? new List<ModelPaperDTO>()
+        };
+    }
+
     //GET all models, newest to oldest
     [HttpGet]
     //[Authorize]
     public IActionResult GetAllModels()
     {
-        return Ok(_dbContext
-            .Models
+        List<Model> models = _dbContext.Models
+            .Include(m => m.UserProfile)
+            .Include(m => m.Complexity)
+            .Include(m => m.Source)
+            .Include(m => m.ModelPapers)
+                .ThenInclude(mp => mp.Paper)
             .OrderByDescending(m => m.CreatedAt)
-            .ToList());
+            .ToList();
+
+        List<ModelDTO> modelDTOs = models.Select(MapToDTO).ToList();
+        return Ok(modelDTOs);
     }
 
     //GET single Model by id
@@ -34,8 +87,7 @@ public class ModelController : ControllerBase
     //[Authorize]
     public IActionResult GetById(int id)
     {
-        Model model = _dbContext
-            .Models
+        Model model = _dbContext.Models
             .Include(m => m.UserProfile)
             .Include(m => m.Complexity)
             .Include(m => m.Source)
@@ -48,7 +100,7 @@ public class ModelController : ControllerBase
             return NotFound();
         }
 
-        return Ok(model);
+        return Ok(MapToDTO(model));
     }
 
     //POST Model
@@ -70,28 +122,33 @@ public class ModelController : ControllerBase
     */
     [HttpPost]
     //[Authorize]
-    public IActionResult CreateModel([FromBody] Model model)
+    public IActionResult CreateModel([FromBody] ModelDTO modelDTO)
     {
-        if (model == null)
+        if (modelDTO == null)
         {
-            return BadRequest("Model data is required");
+            return BadRequest("ModelDTO is required");
         }
 
-        model.CreatedAt = DateTime.UtcNow;
-
-        // Detach any linked Paper entities if present (EF Core will track them otherwise)
-        if (model.ModelPapers != null)
+        Model model = new Model
         {
-            foreach (ModelPaper mp in model.ModelPapers)
+            Title = modelDTO.Title,
+            ComplexityId = modelDTO.ComplexityId,
+            SourceId = modelDTO.SourceId,
+            StepCount = modelDTO.StepCount,
+            UserProfileId = modelDTO.UserProfileId,
+            ModelImg = modelDTO.ModelImg,
+            Artist = modelDTO.Artist,
+            CreatedAt = DateTime.UtcNow,
+            ModelPapers = modelDTO.ModelPapers?.Select(mp => new ModelPaper
             {
-                mp.Paper = null; // Avoid trying to insert/update Paper entity
-            }
-        }
+                PaperId = mp.PaperId
+            }).ToList() ?? new List<ModelPaper>()
+        };
 
         _dbContext.Models.Add(model);
         _dbContext.SaveChanges();
 
-        return Created($"/api/model/{model.Id}", model);
+        return Created($"/api/model/{model.Id}", MapToDTO(model));
     }
 
     //DELETE Model
@@ -105,7 +162,6 @@ public class ModelController : ControllerBase
             return NotFound();
         }
 
-        // Get the authenticated user's IdentityUserId (if using Identity)
         string currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
         UserProfile userProfile = _dbContext.UserProfiles.SingleOrDefault(up => up.IdentityUserId == currentUserId);
 
@@ -141,9 +197,9 @@ public class ModelController : ControllerBase
     */
     [HttpPut("{id}")]
     //[Authorize]
-    public IActionResult UpdateModel(int id, [FromBody] Model model)
+    public IActionResult UpdateModel(int id, [FromBody] ModelDTO modelDTO)
     {
-        if (id != model.Id)
+        if (id != modelDTO.Id)
         {
             return BadRequest("ID mismatch");
         }
@@ -157,31 +213,21 @@ public class ModelController : ControllerBase
             return NotFound();
         }
 
-        // Update scalar properties
-        existingModel.Title = model.Title;
-        existingModel.ComplexityId = model.ComplexityId;
-        existingModel.SourceId = model.SourceId;
-        existingModel.StepCount = model.StepCount;
-        existingModel.ModelImg = model.ModelImg;
-        existingModel.Artist = model.Artist;
+        existingModel.Title = modelDTO.Title;
+        existingModel.ComplexityId = modelDTO.ComplexityId;
+        existingModel.SourceId = modelDTO.SourceId;
+        existingModel.StepCount = modelDTO.StepCount;
+        existingModel.ModelImg = modelDTO.ModelImg;
+        existingModel.Artist = modelDTO.Artist;
 
-        // Replace ModelPapers (clear and re-add)
         _dbContext.ModelPapers.RemoveRange(existingModel.ModelPapers);
-
-        if (model.ModelPapers != null && model.ModelPapers.Any())
+        existingModel.ModelPapers = modelDTO.ModelPapers?.Select(mp => new ModelPaper
         {
-            foreach (ModelPaper mp in model.ModelPapers)
-            {
-                existingModel.ModelPapers.Add(new ModelPaper
-                {
-                    ModelId = model.Id,
-                    PaperId = mp.PaperId
-                });
-            }
-        }
+            ModelId = modelDTO.Id,
+            PaperId = mp.PaperId
+        }).ToList() ?? new List<ModelPaper>();
 
         _dbContext.SaveChanges();
-
         return NoContent();
     }
 
@@ -190,7 +236,7 @@ public class ModelController : ControllerBase
     //[Authorize]
     public IActionResult GetModelsByUserId(int userId)
     {
-        var models = _dbContext.Models
+        List<Model> models = _dbContext.Models
             .Include(m => m.UserProfile)
             .Include(m => m.Complexity)
             .Include(m => m.Source)
@@ -200,12 +246,12 @@ public class ModelController : ControllerBase
             .OrderByDescending(m => m.CreatedAt)
             .ToList();
 
-        if (models == null || !models.Any())
+        if (!models.Any())
         {
             return NotFound($"No models found for userId: {userId}");
         }
 
-        return Ok(models);
+        return Ok(models.Select(MapToDTO).ToList());
     }
 
     // GET: api/model/recent
@@ -214,11 +260,16 @@ public class ModelController : ControllerBase
     public IActionResult GetRecentModels()
     {
         List<Model> recentModels = _dbContext.Models
+            .Include(m => m.UserProfile)
+            .Include(m => m.Complexity)
+            .Include(m => m.Source)
+            .Include(m => m.ModelPapers)
+                .ThenInclude(mp => mp.Paper)
             .OrderByDescending(m => m.CreatedAt)
             .Take(3)
             .ToList();
 
-        return Ok(recentModels);
+        return Ok(recentModels.Select(MapToDTO).ToList());
     }
 
     [HttpPost("upload")]
