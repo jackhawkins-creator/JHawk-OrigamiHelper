@@ -23,12 +23,27 @@ public class UserProfileController : ControllerBase
     //[Authorize]
     public IActionResult GetUserProfileById(int id)
     {
-        UserProfile userProfile = _dbContext.UserProfiles.FirstOrDefault(p => p.Id == id);
-        if (userProfile == null)
+        UserProfileDTO profile = _dbContext.UserProfiles
+            .Include(up => up.IdentityUser)
+            .Where(up => up.Id == id)
+            .Select(up => new UserProfileDTO
+            {
+                Id = up.Id,
+                FirstName = up.FirstName,
+                LastName = up.LastName,
+                Address = up.Address,
+                Email = up.IdentityUser.Email,
+                UserName = up.IdentityUser.UserName,
+                IdentityUserId = up.IdentityUserId
+            })
+            .FirstOrDefault();
+
+        if (profile == null)
         {
             return NotFound();
         }
-        return Ok(userProfile);
+
+        return Ok(profile);
     }
 
     //PUT Update profile
@@ -42,7 +57,7 @@ public class UserProfileController : ControllerBase
     */
     [HttpPut("me")]
     //[Authorize]
-    public IActionResult UpdateCurrentUserProfile([FromBody] UserProfile updatedProfile)
+    public IActionResult UpdateCurrentUserProfile([FromBody] UserProfileDTO updatedProfileDto)
     {
         string firebaseId = User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
 
@@ -58,10 +73,9 @@ public class UserProfileController : ControllerBase
             return NotFound("User profile not found.");
         }
 
-        // Update relevant fields only (protect IdentityUserId and Id)
-        userProfile.FirstName = updatedProfile.FirstName;
-        userProfile.LastName = updatedProfile.LastName;
-        userProfile.Address = updatedProfile.Address;
+        userProfile.FirstName = updatedProfileDto.FirstName;
+        userProfile.LastName = updatedProfileDto.LastName;
+        userProfile.Address = updatedProfileDto.Address;
 
         _dbContext.SaveChanges();
 

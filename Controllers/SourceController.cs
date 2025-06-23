@@ -23,9 +23,15 @@ public class SourceController : ControllerBase
     //[Authorize]
     public IActionResult GetAllSources()
     {
-        return Ok(_dbContext
-            .Sources
-            .ToList());
+        List<SourceDTO> sources = _dbContext.Sources
+            .Select(s => new SourceDTO
+            {
+                Id = s.Id,
+                Title = s.Title
+            })
+            .ToList();
+
+        return Ok(sources);
     }
 
     //GET single source by id
@@ -33,11 +39,20 @@ public class SourceController : ControllerBase
     //[Authorize]
     public IActionResult GetSourceById(int id)
     {
-        Source source = _dbContext.Sources.FirstOrDefault(p => p.Id == id);
+        SourceDTO source = _dbContext.Sources
+            .Where(s => s.Id == id)
+            .Select(s => new SourceDTO
+            {
+                Id = s.Id,
+                Title = s.Title
+            })
+            .FirstOrDefault();
+
         if (source == null)
         {
             return NotFound();
         }
+
         return Ok(source);
     }
 }
