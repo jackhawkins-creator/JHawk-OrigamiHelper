@@ -27,7 +27,7 @@ export default function UserProfile({loggedInUser}) {
   }, [id]);
 
   if (loading) return <Spinner color="primary" />;
-  if (!profile) return <p>User not found.</p>;
+  if (!profile) return <p>User has no models.</p>;
 
   return (
     <div className="container mt-4">

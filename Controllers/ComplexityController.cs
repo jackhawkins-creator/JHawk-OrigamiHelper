@@ -20,7 +20,7 @@ public class ComplexityController : ControllerBase
 
     //GET all complexities
     [HttpGet]
-    //[Authorize]
+    [Authorize]
     public IActionResult GetAllComplexities()
     {
         List<ComplexityDTO> complexities = _dbContext.Complexities
@@ -36,7 +36,7 @@ public class ComplexityController : ControllerBase
 
     //GET single complexity by id
     [HttpGet("complexities/{id}")]
-    //[Authorize]
+    [Authorize]
     public IActionResult GetComplexityById(int id)
     {
         ComplexityDTO complexity = _dbContext.Complexities

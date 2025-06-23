@@ -20,7 +20,7 @@ public class UserProfileController : ControllerBase
 
     //GET single profile by id
     [HttpGet("{id}")]
-    //[Authorize]
+    [Authorize]
     public IActionResult GetUserProfileById(int id)
     {
         UserProfileDTO profile = _dbContext.UserProfiles
@@ -56,7 +56,7 @@ public class UserProfileController : ControllerBase
     }
     */
     [HttpPut("me")]
-    //[Authorize]
+    [Authorize]
     public IActionResult UpdateCurrentUserProfile([FromBody] UserProfileDTO updatedProfileDto)
     {
         string firebaseId = User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;

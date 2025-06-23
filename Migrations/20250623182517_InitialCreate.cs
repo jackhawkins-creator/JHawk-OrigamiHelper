@@ -207,7 +207,7 @@ namespace OrigamiHelper.Migrations
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
                     Address = table.Column<string>(type: "text", nullable: false),
-                    IdentityUserId = table.Column<string>(type: "text", nullable: true)
+                    IdentityUserId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -216,7 +216,8 @@ namespace OrigamiHelper.Migrations
                         name: "FK_UserProfiles_AspNetUsers_IdentityUserId",
                         column: x => x.IdentityUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -291,7 +292,7 @@ namespace OrigamiHelper.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "8b488c37-1a5a-4322-83e7-a5fbb5c8c441", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEPcJsRtvU4li2A+mQJiw0hMaAWOtGM+yyC8BaCUgkJYQFT/jEjhXfvh3VpO7R4+Bbg==", null, false, "e1d55e6f-e759-454a-886e-c7299a5693a8", false, "Administrator" });
+                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "ca51cbdb-ce2c-4bfe-919c-5f6c73c5a13e", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEHdRBqnLfLRtaVt2IWfbD72VICG2grERqeMKXMQUCS7O8Vsw6q1gZhgQ3fxSLB3V2w==", null, false, "3dba6531-1175-476e-a31e-d14900b4c5e6", false, "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "Complexities",
@@ -340,8 +341,8 @@ namespace OrigamiHelper.Migrations
                 columns: new[] { "Id", "Artist", "ComplexityId", "CreatedAt", "ModelImg", "SourceId", "StepCount", "Title", "UserProfileId" },
                 values: new object[,]
                 {
-                    { 1, "Nguyen Hong Chuong", 4, new DateTime(2025, 6, 20, 20, 37, 52, 290, DateTimeKind.Utc).AddTicks(2152), "/Images/rat.png", 1, 20, "Cooking Rat", 1 },
-                    { 2, "Satoshi Kamiya", 6, new DateTime(2025, 6, 20, 20, 37, 52, 290, DateTimeKind.Utc).AddTicks(2160), "/Images/dragon.jpg", 2, 274, "Ancient Dragon", 1 }
+                    { 1, "Nguyen Hong Chuong", 4, new DateTime(2025, 6, 23, 18, 25, 17, 368, DateTimeKind.Utc).AddTicks(252), "/Images/rat.png", 1, 20, "Cooking Rat", 1 },
+                    { 2, "Satoshi Kamiya", 6, new DateTime(2025, 6, 23, 18, 25, 17, 368, DateTimeKind.Utc).AddTicks(257), "/Images/dragon.jpg", 2, 274, "Ancient Dragon", 1 }
                 });
 
             migrationBuilder.InsertData(

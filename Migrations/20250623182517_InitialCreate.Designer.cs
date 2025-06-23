@@ -12,7 +12,7 @@ using OrigamiHelper.Data;
 namespace OrigamiHelper.Migrations
 {
     [DbContext(typeof(OrigamiHelperDbContext))]
-    [Migration("20250620203752_InitialCreate")]
+    [Migration("20250623182517_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -152,13 +152,13 @@ namespace OrigamiHelper.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8b488c37-1a5a-4322-83e7-a5fbb5c8c441",
+                            ConcurrencyStamp = "ca51cbdb-ce2c-4bfe-919c-5f6c73c5a13e",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEPcJsRtvU4li2A+mQJiw0hMaAWOtGM+yyC8BaCUgkJYQFT/jEjhXfvh3VpO7R4+Bbg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHdRBqnLfLRtaVt2IWfbD72VICG2grERqeMKXMQUCS7O8Vsw6q1gZhgQ3fxSLB3V2w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e1d55e6f-e759-454a-886e-c7299a5693a8",
+                            SecurityStamp = "3dba6531-1175-476e-a31e-d14900b4c5e6",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -352,7 +352,7 @@ namespace OrigamiHelper.Migrations
                             Id = 1,
                             Artist = "Nguyen Hong Chuong",
                             ComplexityId = 4,
-                            CreatedAt = new DateTime(2025, 6, 20, 20, 37, 52, 290, DateTimeKind.Utc).AddTicks(2152),
+                            CreatedAt = new DateTime(2025, 6, 23, 18, 25, 17, 368, DateTimeKind.Utc).AddTicks(252),
                             ModelImg = "/Images/rat.png",
                             SourceId = 1,
                             StepCount = 20,
@@ -364,7 +364,7 @@ namespace OrigamiHelper.Migrations
                             Id = 2,
                             Artist = "Satoshi Kamiya",
                             ComplexityId = 6,
-                            CreatedAt = new DateTime(2025, 6, 20, 20, 37, 52, 290, DateTimeKind.Utc).AddTicks(2160),
+                            CreatedAt = new DateTime(2025, 6, 23, 18, 25, 17, 368, DateTimeKind.Utc).AddTicks(257),
                             ModelImg = "/Images/dragon.jpg",
                             SourceId = 2,
                             StepCount = 274,
@@ -496,6 +496,7 @@ namespace OrigamiHelper.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("IdentityUserId")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("LastName")
@@ -618,7 +619,9 @@ namespace OrigamiHelper.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
-                        .HasForeignKey("IdentityUserId");
+                        .HasForeignKey("IdentityUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("IdentityUser");
                 });
