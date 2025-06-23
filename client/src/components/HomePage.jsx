@@ -10,11 +10,11 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="container mt-4">
-      <h2>Recently Added Models</h2>
-      <div className="row">
+    <div className="container mt-5">
+      <h2 className="mb-4 text-center">Recently Added Models</h2>
+      <div className="row g-4">
         {models.map((model) => (
-          <div className="col-md-4" key={model.id}>
+          <div className="col-sm-6 col-md-4" key={model.id}>
             <ModelCard model={model} />
           </div>
         ))}

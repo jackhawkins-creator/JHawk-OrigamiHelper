@@ -172,7 +172,7 @@ export default function CreateModel({ loggedInUser }) {
         </FormGroup>
 
         <FormGroup>
-          <Label>Paper Types</Label>
+          <Label className="mb-0 me-2">Paper Types</Label>
           {selectedPapers.map((paperId, index) => (
             <Row key={index} className="mb-2">
               <Col md={10}>
