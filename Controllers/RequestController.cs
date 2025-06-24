@@ -177,4 +177,44 @@ public class RequestController : ControllerBase
         return NoContent();
     }
 
+    // GET the 8 most recent help requests
+    [HttpGet("recent")]
+    //[Authorize]
+    public IActionResult GetRecentRequests()
+    {
+        List<RequestDTO> recentRequests = _dbContext.Requests
+            .Include(r => r.Model)
+            .OrderByDescending(r => r.CreatedAt)
+            .Take(8)
+            .Select(r => new RequestDTO
+            {
+                Id = r.Id,
+                UserId = r.UserId,
+                ModelId = r.ModelId,
+                StepNumber = r.StepNumber,
+                Description = r.Description,
+                CreatedAt = r.CreatedAt,
+                Model = r.Model == null ? null : new ModelDTO
+                {
+                    Id = r.Model.Id,
+                    Title = r.Model.Title,
+                    StepCount = r.Model.StepCount,
+                    UserProfileId = r.Model.UserProfileId,
+                    CreatedAt = r.Model.CreatedAt,
+                    ModelImg = r.Model.ModelImg,
+                    Artist = r.Model.Artist,
+                    ComplexityId = r.Model.ComplexityId,
+                    SourceId = r.Model.SourceId,
+                    UserProfile = null,
+                    Complexity = null,
+                    Source = null,
+                    ModelPapers = new List<ModelPaperDTO>()
+                }
+            })
+            .ToList();
+
+        return Ok(recentRequests);
+    }
+
+
 }
