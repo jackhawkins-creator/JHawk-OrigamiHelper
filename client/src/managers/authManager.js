@@ -27,7 +27,6 @@ export const tryGetLoggedInUser = () => {
 };
 
 export const register = (userProfile) => {
-  userProfile.password = btoa(userProfile.password);
   return fetch(_apiUrl + "/register", {
     credentials: "same-origin",
     method: "POST",
@@ -35,5 +34,12 @@ export const register = (userProfile) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(userProfile),
-  }).then(() => tryGetLoggedInUser());
-};
+  }).then(async (res) => {
+    if (res.status !== 200) {
+      const err = await res.json();
+      console.error("Registration error:", err);
+      return null;
+    }
+    return tryGetLoggedInUser();
+  });
+}
