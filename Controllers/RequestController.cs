@@ -107,7 +107,7 @@ public class RequestController : ControllerBase
   "modelId": 2,
   "stepNumber": 151,
   "description": "Having trouble interpreting the sink fold direction at this step."
-    }
+}
     */
     [HttpPost]
     //[Authorize]
@@ -145,7 +145,36 @@ public class RequestController : ControllerBase
         _dbContext.Requests.Add(request);
         _dbContext.SaveChanges();
 
-        return Created($"/api/request/{requestDTO.Id}", requestDTO);
+        RequestDTO newRequestDTO = new RequestDTO
+        {
+            Id = request.Id,
+            UserId = request.UserId,
+            ModelId = request.ModelId,
+            StepNumber = request.StepNumber,
+            Description = request.Description,
+            CreatedAt = request.CreatedAt,
+            Model = null,
+            UserProfile = null
+        };
+
+        return Created($"/api/request/{request.Id}", newRequestDTO);
+    }
+
+    //DELETE Model
+    [HttpDelete("{id}")]
+    //[Authorize]
+    public IActionResult DeleteRequest(int id)
+    {
+        Request request = _dbContext.Requests.SingleOrDefault(r => r.Id == id);
+        if (request == null)
+        {
+            return NotFound();
+        }
+
+        _dbContext.Requests.Remove(request);
+        _dbContext.SaveChanges();
+
+        return NoContent();
     }
 
 }
