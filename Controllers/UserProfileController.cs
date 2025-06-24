@@ -20,7 +20,7 @@ public class UserProfileController : ControllerBase
 
     //GET single profile by id
     [HttpGet("{id}")]
-    [Authorize]
+    //[Authorize]
     public IActionResult GetUserProfileById(int id)
     {
         UserProfileDTO profile = _dbContext.UserProfiles

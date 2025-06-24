@@ -15,6 +15,7 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
     public DbSet<ModelPaper> ModelPapers { get; set; }
     public DbSet<Paper> Papers { get; set; }
     public DbSet<Source> Sources { get; set; }
+    public DbSet<Request> Requests { get; set; }
 
     public OrigamiHelperDbContext(DbContextOptions<OrigamiHelperDbContext> context, IConfiguration config) : base(context)
     {
@@ -39,6 +40,48 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
             Email = "admina@strator.comx",
             PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, _configuration["AdminPassword"])
         });
+
+        // Seed additional IdentityUsers
+        modelBuilder.Entity<IdentityUser>().HasData(
+            new IdentityUser
+            {
+                Id = "a1b2c3d4-5678-4eab-9fc1-100000000001",
+                UserName = "origamifan1",
+                NormalizedUserName = "ORIGAMIFAN1",
+                Email = "fan1@example.com",
+                NormalizedEmail = "FAN1@EXAMPLE.COM",
+                PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "Origami123!")
+            },
+            new IdentityUser
+            {
+                Id = "a1b2c3d4-5678-4eab-9fc1-100000000002",
+                UserName = "paperfolder",
+                NormalizedUserName = "PAPERFOLDER",
+                Email = "folder@example.com",
+                NormalizedEmail = "FOLDER@EXAMPLE.COM",
+                PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "Origami123!")
+            }
+        );
+
+        modelBuilder.Entity<UserProfile>().HasData(
+            new UserProfile
+            {
+                Id = 2,
+                IdentityUserId = "a1b2c3d4-5678-4eab-9fc1-100000000001",
+                FirstName = "Olivia",
+                LastName = "Cranes",
+                Address = "22 Fold Street"
+            },
+            new UserProfile
+            {
+                Id = 3,
+                IdentityUserId = "a1b2c3d4-5678-4eab-9fc1-100000000002",
+                FirstName = "Max",
+                LastName = "Valley",
+                Address = "88 Crease Lane"
+            }
+        );
+
 
         modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
         {
@@ -111,5 +154,55 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
             new ModelPaper { Id = 2, ModelId = 2, PaperId = 3 },
             new ModelPaper { Id = 3, ModelId = 2, PaperId = 2 } // Dragon also works with Washi
         );
+
+        // Seed Help Requests
+        modelBuilder.Entity<Request>().HasData(
+            new Request
+            {
+                Id = 1,
+                UserId = 1,
+                ModelId = 1, // Cooking Rat
+                StepNumber = 5,
+                Description = "Having trouble with the reverse fold. Not sure which layer to use.",
+                CreatedAt = DateTime.UtcNow.AddDays(-3)
+            },
+            new Request
+            {
+                Id = 2,
+                UserId = 1,
+                ModelId = 2, // Ancient Dragon
+                StepNumber = 157,
+                Description = "Step 157's sink fold keeps tearing my paper. Is there a trick?",
+                CreatedAt = DateTime.UtcNow.AddDays(-1)
+            },
+            new Request
+            {
+                Id = 3,
+                UserId = 1,
+                ModelId = 2, // Ancient Dragon
+                StepNumber = 200,
+                Description = "I'm not sure if the squash fold should go all the way through.",
+                CreatedAt = DateTime.UtcNow
+            },
+            new Request
+            {
+                Id = 4,
+                UserId = 2,
+                ModelId = 1,
+                StepNumber = 12,
+                Description = "Step 12's squash fold keeps making my model asymmetrical.",
+                CreatedAt = DateTime.UtcNow.AddDays(-2)
+            },
+            new Request
+            {
+                Id = 5,
+                UserId = 3,
+                ModelId = 2,
+                StepNumber = 250,
+                Description = "This collapse is insane! Any tips on pre-creasing?",
+                CreatedAt = DateTime.UtcNow.AddDays(-1)
+            }
+        );
+
     }
 }
