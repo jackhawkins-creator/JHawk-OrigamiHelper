@@ -7,6 +7,7 @@ import {
   CardText,
   CardSubtitle,
   Spinner,
+  Button,
 } from "reactstrap";
 import { getModelById } from "../../managers/modelManager";
 
@@ -84,6 +85,11 @@ export default function ModelDetails() {
           <strong>Total Steps:</strong> {stepCount}
         </CardText>
       </CardBody>
+      <Link to={`/models/${id}/help-request`}>
+        <Button color="warning" className="mt-3">
+          Create Help Request
+        </Button>
+      </Link>
     </Card>
   );
 }

@@ -38,6 +38,11 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                 </NavLink>
               </NavItem>
               <NavItem>
+                <NavLink tag={RRNavLink} to="/requests">
+                  Help Requests
+                </NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink tag={RRNavLink} to={`/users/${loggedInUser?.id}`}>
                   Profile
                 </NavLink>
