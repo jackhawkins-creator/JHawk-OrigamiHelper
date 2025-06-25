@@ -10,6 +10,14 @@ import UserProfile from "./profiles/UserProfileDetails";
 import EditModel from "./models/EditModel";
 import RequestList from "./requests/RequestList";
 import CreateRequest from "./requests/CreateRequest";
+import ResponseList from "./responses/ResponseList";
+import { useParams } from "react-router-dom";
+
+// This is needed because `useParams()` can’t be called directly inside the route
+function ResponseListWrapper() {
+  const { requestId } = useParams();
+  return <ResponseList requestId={parseInt(requestId)} />;
+}
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -81,6 +89,15 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
               <CreateRequest loggedInUser={loggedInUser} />
+            </AuthorizedRoute>
+          }
+        />
+
+        <Route
+          path="responses/:requestId"
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <ResponseListWrapper />
             </AuthorizedRoute>
           }
         />

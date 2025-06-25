@@ -5,6 +5,7 @@ import {
   CardText,
   CardSubtitle,
 } from "reactstrap";
+import { Link } from "react-router-dom";
 
 export default function RequestCard({ request }) {
   return (
@@ -18,6 +19,9 @@ export default function RequestCard({ request }) {
         <CardText className="text-muted" style={{ fontSize: "0.8rem" }}>
           Submitted on {new Date(request.createdAt).toLocaleDateString()}
         </CardText>
+        <Link to={`/responses/${request.id}`} className="btn btn-primary btn-sm">
+          View Responses
+        </Link>
       </CardBody>
     </Card>
   );
