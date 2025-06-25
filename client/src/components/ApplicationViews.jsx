@@ -8,6 +8,8 @@ import CreateModel from "./models/CreateModel";
 import ModelDetails from "./models/ModelDetails";
 import UserProfile from "./profiles/UserProfileDetails";
 import EditModel from "./models/EditModel";
+import RequestList from "./requests/RequestList";
+import CreateRequest from "./requests/CreateRequest";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -61,6 +63,24 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
               <EditModel loggedInUser={loggedInUser} />
+            </AuthorizedRoute>
+          }
+        />
+
+        <Route
+          path="requests"
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <RequestList />
+            </AuthorizedRoute>
+          }
+        />
+
+        <Route
+          path="models/:id/help-request"
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <CreateRequest loggedInUser={loggedInUser} />
             </AuthorizedRoute>
           }
         />
