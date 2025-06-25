@@ -1,4 +1,3 @@
-
 namespace OrigamiHelper.Models;
 
 public class Response
@@ -9,4 +8,5 @@ public class Response
     public string Media { get; set; }
     public string Description { get; set; }
     public DateTime CreatedAt { get; set; }
+    public Request Request { get; set; }
 }
