@@ -75,7 +75,7 @@ public class ResponseController : ControllerBase
         {
             RequestId = responseDTO.RequestId,
             ResponderId = responseDTO.ResponderId,
-            Media = responseDTO.Description,
+            Media = responseDTO.Media,
             Description = responseDTO.Description,
             CreatedAt = DateTime.UtcNow
         };
