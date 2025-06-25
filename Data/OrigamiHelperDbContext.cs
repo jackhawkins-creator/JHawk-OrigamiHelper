@@ -16,6 +16,7 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Paper> Papers { get; set; }
     public DbSet<Source> Sources { get; set; }
     public DbSet<Request> Requests { get; set; }
+    public DbSet<Response> Responses { get; set; }
 
     public OrigamiHelperDbContext(DbContextOptions<OrigamiHelperDbContext> context, IConfiguration config) : base(context)
     {
@@ -201,6 +202,37 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
                 StepNumber = 250,
                 Description = "This collapse is insane! Any tips on pre-creasing?",
                 CreatedAt = DateTime.UtcNow.AddDays(-1)
+            }
+        );
+
+        // Seed Responses (video replies to help requests)
+        modelBuilder.Entity<Response>().HasData(
+            new Response
+            {
+                Id = 1,
+                RequestId = 1, // Reverse fold help on Cooking Rat
+                ResponderId = 3, // Max Valley
+                Media = "https://www.youtube.com/watch?v=O-7w2Byevzc&pp=ygUTaW5zaWRlIHJldmVyc2UgZm9sZA%3D%3D",
+                Description = "Here’s how I do that reverse fold at Step 5. Use only the top two layers!",
+                CreatedAt = DateTime.UtcNow.AddDays(-2)
+            },
+            new Response
+            {
+                Id = 2,
+                RequestId = 2, // Sink fold tearing paper
+                ResponderId = 2, // Olivia Cranes
+                Media = "https://www.youtube.com/watch?v=DCKpxQ_wU0Q&pp=ygURc2luayBmb2xkIG9yaWdhbWk%3D",
+                Description = "Try slightly moistening the fold and use tweezers to control the collapse.",
+                CreatedAt = DateTime.UtcNow.AddDays(-1)
+            },
+            new Response
+            {
+                Id = 3,
+                RequestId = 4, // Asymmetrical squash fold
+                ResponderId = 1, // Admina Strator
+                Media = "https://www.youtube.com/watch?v=5ADtNYrUvCQ&pp=ygUTc3F1YXNoIGZvbGQgb3JpZ2FtaQ%3D%3D",
+                Description = "Line up your central crease before flattening, this should keep things symmetric.",
+                CreatedAt = DateTime.UtcNow
             }
         );
 

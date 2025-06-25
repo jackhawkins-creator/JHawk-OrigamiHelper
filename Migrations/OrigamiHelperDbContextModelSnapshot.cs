@@ -149,13 +149,13 @@ namespace OrigamiHelper.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c14b7564-8bfb-45e9-b72d-ce3b538d0a65",
+                            ConcurrencyStamp = "809f559e-3995-4efa-b99f-7b53525b4194",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEKt/tKnc4oFsUazY+6/BYQ5pmfsHjpAs14WySDl7gmaBqW6Co+hrz4MO0uNJ+OWiGw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELMW/vaFzzIfY7iylU6EpocqUrwblRijJLrThmMhcJCH1N/P4B4G91GghP5FWNMMQA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d5ef2263-3765-42a1-9dea-fb9bfde70f62",
+                            SecurityStamp = "0d5c7b2d-1152-4da6-ba66-3901776bb9ff",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         },
@@ -163,15 +163,15 @@ namespace OrigamiHelper.Migrations
                         {
                             Id = "a1b2c3d4-5678-4eab-9fc1-100000000001",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "854bc95d-08c8-4fa7-b0b2-f6ca9730e52c",
+                            ConcurrencyStamp = "532dd3a1-bdf9-4c21-86b7-2cbf15f97f3e",
                             Email = "fan1@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "FAN1@EXAMPLE.COM",
                             NormalizedUserName = "ORIGAMIFAN1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJ8NmPlgsgwCAfbn1nasOUlowZxTgMMuFxWQnfl8x3tHo8U/7nchuBO0HLeRxmAxbA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOTABPJrp6Gq9+CZs0MGNjA1txDdsVWgefAKJNP1oABuIZsgkB5um2P6dQL3o/jDCQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a72be208-3f15-42da-8b94-143d2c3a14bc",
+                            SecurityStamp = "660ab779-bcf7-4b68-8942-7d372df81933",
                             TwoFactorEnabled = false,
                             UserName = "origamifan1"
                         },
@@ -179,15 +179,15 @@ namespace OrigamiHelper.Migrations
                         {
                             Id = "a1b2c3d4-5678-4eab-9fc1-100000000002",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "68e6fb0b-a8b8-41b2-99d2-39f745bb44b8",
+                            ConcurrencyStamp = "da556e9c-5940-4930-b2b7-118b8186a00d",
                             Email = "folder@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "FOLDER@EXAMPLE.COM",
                             NormalizedUserName = "PAPERFOLDER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBA5hNYeyuc/cLVuReXZbMHrvRDr4RC/fFKj3F4hW3Nq2jOXYFeP0Rrns8Xut5B+Qg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEN2PSKLmKXuyJDEZH0LMe9iEM4KL+V9QeZgPAaGDzfgeRHYxWLEa21z2e7FxPhQyvQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "964dd949-56ee-42d4-a518-ad4851ddea16",
+                            SecurityStamp = "c3f1bb38-b119-49e5-81a9-ab3491307fd5",
                             TwoFactorEnabled = false,
                             UserName = "paperfolder"
                         });
@@ -381,7 +381,7 @@ namespace OrigamiHelper.Migrations
                             Id = 1,
                             Artist = "Nguyen Hong Chuong",
                             ComplexityId = 4,
-                            CreatedAt = new DateTime(2025, 6, 24, 19, 15, 29, 273, DateTimeKind.Utc).AddTicks(2467),
+                            CreatedAt = new DateTime(2025, 6, 25, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5630),
                             ModelImg = "/Images/rat.png",
                             SourceId = 1,
                             StepCount = 20,
@@ -393,7 +393,7 @@ namespace OrigamiHelper.Migrations
                             Id = 2,
                             Artist = "Satoshi Kamiya",
                             ComplexityId = 6,
-                            CreatedAt = new DateTime(2025, 6, 24, 19, 15, 29, 273, DateTimeKind.Utc).AddTicks(2475),
+                            CreatedAt = new DateTime(2025, 6, 25, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5804),
                             ModelImg = "/Images/dragon.jpg",
                             SourceId = 2,
                             StepCount = 274,
@@ -518,7 +518,7 @@ namespace OrigamiHelper.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 6, 21, 19, 15, 29, 273, DateTimeKind.Utc).AddTicks(2545),
+                            CreatedAt = new DateTime(2025, 6, 22, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5861),
                             Description = "Having trouble with the reverse fold. Not sure which layer to use.",
                             ModelId = 1,
                             StepNumber = 5,
@@ -527,7 +527,7 @@ namespace OrigamiHelper.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 6, 23, 19, 15, 29, 273, DateTimeKind.Utc).AddTicks(2552),
+                            CreatedAt = new DateTime(2025, 6, 24, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5868),
                             Description = "Step 157's sink fold keeps tearing my paper. Is there a trick?",
                             ModelId = 2,
                             StepNumber = 157,
@@ -536,7 +536,7 @@ namespace OrigamiHelper.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 6, 24, 19, 15, 29, 273, DateTimeKind.Utc).AddTicks(2552),
+                            CreatedAt = new DateTime(2025, 6, 25, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5868),
                             Description = "I'm not sure if the squash fold should go all the way through.",
                             ModelId = 2,
                             StepNumber = 200,
@@ -545,7 +545,7 @@ namespace OrigamiHelper.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2025, 6, 22, 19, 15, 29, 273, DateTimeKind.Utc).AddTicks(2553),
+                            CreatedAt = new DateTime(2025, 6, 23, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5869),
                             Description = "Step 12's squash fold keeps making my model asymmetrical.",
                             ModelId = 1,
                             StepNumber = 12,
@@ -554,11 +554,70 @@ namespace OrigamiHelper.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2025, 6, 23, 19, 15, 29, 273, DateTimeKind.Utc).AddTicks(2554),
+                            CreatedAt = new DateTime(2025, 6, 24, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5870),
                             Description = "This collapse is insane! Any tips on pre-creasing?",
                             ModelId = 2,
                             StepNumber = 250,
                             UserId = 3
+                        });
+                });
+
+            modelBuilder.Entity("OrigamiHelper.Models.Response", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Media")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("RequestId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ResponderId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Responses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2025, 6, 23, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5896),
+                            Description = "Here’s how I do that reverse fold at Step 5. Use only the top two layers!",
+                            Media = "https://www.youtube.com/watch?v=O-7w2Byevzc&pp=ygUTaW5zaWRlIHJldmVyc2UgZm9sZA%3D%3D",
+                            RequestId = 1,
+                            ResponderId = 3
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2025, 6, 24, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5897),
+                            Description = "Try slightly moistening the fold and use tweezers to control the collapse.",
+                            Media = "https://www.youtube.com/watch?v=DCKpxQ_wU0Q&pp=ygURc2luayBmb2xkIG9yaWdhbWk%3D",
+                            RequestId = 2,
+                            ResponderId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2025, 6, 25, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5897),
+                            Description = "Line up your central crease before flattening, this should keep things symmetric.",
+                            Media = "https://www.youtube.com/watch?v=5ADtNYrUvCQ&pp=ygUTc3F1YXNoIGZvbGQgb3JpZ2FtaQ%3D%3D",
+                            RequestId = 4,
+                            ResponderId = 1
                         });
                 });
 

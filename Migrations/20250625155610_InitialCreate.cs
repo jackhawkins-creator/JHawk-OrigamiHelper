@@ -80,6 +80,23 @@ namespace OrigamiHelper.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Responses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    RequestId = table.Column<int>(type: "integer", nullable: false),
+                    ResponderId = table.Column<int>(type: "integer", nullable: false),
+                    Media = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Responses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Sources",
                 columns: table => new
                 {
@@ -323,9 +340,9 @@ namespace OrigamiHelper.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "a1b2c3d4-5678-4eab-9fc1-100000000001", 0, "854bc95d-08c8-4fa7-b0b2-f6ca9730e52c", "fan1@example.com", false, false, null, "FAN1@EXAMPLE.COM", "ORIGAMIFAN1", "AQAAAAIAAYagAAAAEJ8NmPlgsgwCAfbn1nasOUlowZxTgMMuFxWQnfl8x3tHo8U/7nchuBO0HLeRxmAxbA==", null, false, "a72be208-3f15-42da-8b94-143d2c3a14bc", false, "origamifan1" },
-                    { "a1b2c3d4-5678-4eab-9fc1-100000000002", 0, "68e6fb0b-a8b8-41b2-99d2-39f745bb44b8", "folder@example.com", false, false, null, "FOLDER@EXAMPLE.COM", "PAPERFOLDER", "AQAAAAIAAYagAAAAEBA5hNYeyuc/cLVuReXZbMHrvRDr4RC/fFKj3F4hW3Nq2jOXYFeP0Rrns8Xut5B+Qg==", null, false, "964dd949-56ee-42d4-a518-ad4851ddea16", false, "paperfolder" },
-                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "c14b7564-8bfb-45e9-b72d-ce3b538d0a65", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEKt/tKnc4oFsUazY+6/BYQ5pmfsHjpAs14WySDl7gmaBqW6Co+hrz4MO0uNJ+OWiGw==", null, false, "d5ef2263-3765-42a1-9dea-fb9bfde70f62", false, "Administrator" }
+                    { "a1b2c3d4-5678-4eab-9fc1-100000000001", 0, "532dd3a1-bdf9-4c21-86b7-2cbf15f97f3e", "fan1@example.com", false, false, null, "FAN1@EXAMPLE.COM", "ORIGAMIFAN1", "AQAAAAIAAYagAAAAEOTABPJrp6Gq9+CZs0MGNjA1txDdsVWgefAKJNP1oABuIZsgkB5um2P6dQL3o/jDCQ==", null, false, "660ab779-bcf7-4b68-8942-7d372df81933", false, "origamifan1" },
+                    { "a1b2c3d4-5678-4eab-9fc1-100000000002", 0, "da556e9c-5940-4930-b2b7-118b8186a00d", "folder@example.com", false, false, null, "FOLDER@EXAMPLE.COM", "PAPERFOLDER", "AQAAAAIAAYagAAAAEN2PSKLmKXuyJDEZH0LMe9iEM4KL+V9QeZgPAaGDzfgeRHYxWLEa21z2e7FxPhQyvQ==", null, false, "c3f1bb38-b119-49e5-81a9-ab3491307fd5", false, "paperfolder" },
+                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "809f559e-3995-4efa-b99f-7b53525b4194", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAELMW/vaFzzIfY7iylU6EpocqUrwblRijJLrThmMhcJCH1N/P4B4G91GghP5FWNMMQA==", null, false, "0d5c7b2d-1152-4da6-ba66-3901776bb9ff", false, "Administrator" }
                 });
 
             migrationBuilder.InsertData(
@@ -349,6 +366,16 @@ namespace OrigamiHelper.Migrations
                     { 1, "Kami" },
                     { 2, "Washi" },
                     { 3, "Foil" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Responses",
+                columns: new[] { "Id", "CreatedAt", "Description", "Media", "RequestId", "ResponderId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2025, 6, 23, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5896), "Here’s how I do that reverse fold at Step 5. Use only the top two layers!", "https://www.youtube.com/watch?v=O-7w2Byevzc&pp=ygUTaW5zaWRlIHJldmVyc2UgZm9sZA%3D%3D", 1, 3 },
+                    { 2, new DateTime(2025, 6, 24, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5897), "Try slightly moistening the fold and use tweezers to control the collapse.", "https://www.youtube.com/watch?v=DCKpxQ_wU0Q&pp=ygURc2luayBmb2xkIG9yaWdhbWk%3D", 2, 2 },
+                    { 3, new DateTime(2025, 6, 25, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5897), "Line up your central crease before flattening, this should keep things symmetric.", "https://www.youtube.com/watch?v=5ADtNYrUvCQ&pp=ygUTc3F1YXNoIGZvbGQgb3JpZ2FtaQ%3D%3D", 4, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -380,8 +407,8 @@ namespace OrigamiHelper.Migrations
                 columns: new[] { "Id", "Artist", "ComplexityId", "CreatedAt", "ModelImg", "SourceId", "StepCount", "Title", "UserProfileId" },
                 values: new object[,]
                 {
-                    { 1, "Nguyen Hong Chuong", 4, new DateTime(2025, 6, 24, 19, 15, 29, 273, DateTimeKind.Utc).AddTicks(2467), "/Images/rat.png", 1, 20, "Cooking Rat", 1 },
-                    { 2, "Satoshi Kamiya", 6, new DateTime(2025, 6, 24, 19, 15, 29, 273, DateTimeKind.Utc).AddTicks(2475), "/Images/dragon.jpg", 2, 274, "Ancient Dragon", 1 }
+                    { 1, "Nguyen Hong Chuong", 4, new DateTime(2025, 6, 25, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5630), "/Images/rat.png", 1, 20, "Cooking Rat", 1 },
+                    { 2, "Satoshi Kamiya", 6, new DateTime(2025, 6, 25, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5804), "/Images/dragon.jpg", 2, 274, "Ancient Dragon", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -399,11 +426,11 @@ namespace OrigamiHelper.Migrations
                 columns: new[] { "Id", "CreatedAt", "Description", "ModelId", "StepNumber", "UserId", "UserProfileId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 6, 21, 19, 15, 29, 273, DateTimeKind.Utc).AddTicks(2545), "Having trouble with the reverse fold. Not sure which layer to use.", 1, 5, 1, null },
-                    { 2, new DateTime(2025, 6, 23, 19, 15, 29, 273, DateTimeKind.Utc).AddTicks(2552), "Step 157's sink fold keeps tearing my paper. Is there a trick?", 2, 157, 1, null },
-                    { 3, new DateTime(2025, 6, 24, 19, 15, 29, 273, DateTimeKind.Utc).AddTicks(2552), "I'm not sure if the squash fold should go all the way through.", 2, 200, 1, null },
-                    { 4, new DateTime(2025, 6, 22, 19, 15, 29, 273, DateTimeKind.Utc).AddTicks(2553), "Step 12's squash fold keeps making my model asymmetrical.", 1, 12, 2, null },
-                    { 5, new DateTime(2025, 6, 23, 19, 15, 29, 273, DateTimeKind.Utc).AddTicks(2554), "This collapse is insane! Any tips on pre-creasing?", 2, 250, 3, null }
+                    { 1, new DateTime(2025, 6, 22, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5861), "Having trouble with the reverse fold. Not sure which layer to use.", 1, 5, 1, null },
+                    { 2, new DateTime(2025, 6, 24, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5868), "Step 157's sink fold keeps tearing my paper. Is there a trick?", 2, 157, 1, null },
+                    { 3, new DateTime(2025, 6, 25, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5868), "I'm not sure if the squash fold should go all the way through.", 2, 200, 1, null },
+                    { 4, new DateTime(2025, 6, 23, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5869), "Step 12's squash fold keeps making my model asymmetrical.", 1, 12, 2, null },
+                    { 5, new DateTime(2025, 6, 24, 15, 56, 9, 793, DateTimeKind.Utc).AddTicks(5870), "This collapse is insane! Any tips on pre-creasing?", 2, 250, 3, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -507,6 +534,9 @@ namespace OrigamiHelper.Migrations
 
             migrationBuilder.DropTable(
                 name: "Requests");
+
+            migrationBuilder.DropTable(
+                name: "Responses");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
