@@ -160,7 +160,7 @@ public class RequestController : ControllerBase
         return Created($"/api/request/{request.Id}", newRequestDTO);
     }
 
-    //DELETE Model
+    //DELETE Request
     [HttpDelete("{id}")]
     //[Authorize]
     public IActionResult DeleteRequest(int id)
