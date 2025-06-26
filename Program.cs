@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.FileProviders;
 using OrigamiHelper.Data;
+using Microsoft.AspNetCore.StaticFiles; //added for vidyas
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,6 +74,21 @@ app.UseStaticFiles(new StaticFileOptions
     FileProvider = new PhysicalFileProvider(Path.Combine(app.Environment.ContentRootPath, "Images")),
     RequestPath = "/Images"
 });
+
+// Serve static files from Videos with explicit MIME types
+var videoContentTypeProvider = new FileExtensionContentTypeProvider();
+videoContentTypeProvider.Mappings[".mp4"] = "video/mp4"; // Ensure mp4 is mapped
+videoContentTypeProvider.Mappings[".mov"] = "video/quicktime"; // (Optional)
+videoContentTypeProvider.Mappings[".webm"] = "video/webm";     // (Optional)
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(app.Environment.ContentRootPath, "Videos")),
+    RequestPath = "/Videos",
+    ContentTypeProvider = videoContentTypeProvider
+});
+
 
 // these two calls are required to add auth to the pipeline for a request
 app.UseAuthentication();

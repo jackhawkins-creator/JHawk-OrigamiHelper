@@ -103,4 +103,44 @@ public class ResponseController : ControllerBase
         return NoContent();
     }
 
+    [HttpPost("upload")]
+    [RequestSizeLimit(52428800)] // Limit to 50MB (optional)
+    public async Task<IActionResult> UploadVideoResponse([FromForm] IFormFile videoFile, [FromForm] int requestId, [FromForm] int responderId, [FromForm] string description)
+    {
+        if (videoFile == null || videoFile.Length == 0)
+            return BadRequest("No video file uploaded.");
+
+        // Save file to "Videos" folder
+        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Videos");
+        if (!Directory.Exists(uploadsFolder))
+        {
+            Directory.CreateDirectory(uploadsFolder);
+        }
+
+        var uniqueFileName = $"{Guid.NewGuid()}_{videoFile.FileName}";
+        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await videoFile.CopyToAsync(stream);
+        }
+
+        var mediaUrl = $"/Videos/{uniqueFileName}";
+
+        var response = new Response
+        {
+            RequestId = requestId,
+            ResponderId = responderId,
+            Media = mediaUrl,
+            Description = description,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        _dbContext.Responses.Add(response);
+        _dbContext.SaveChanges();
+
+        return Created($"/api/response/{response.Id}", response);
+    }
+
+
 }
