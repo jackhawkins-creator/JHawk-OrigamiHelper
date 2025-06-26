@@ -185,7 +185,7 @@ public class RequestController : ControllerBase
         List<RequestDTO> recentRequests = _dbContext.Requests
             .Include(r => r.Model)
             .OrderByDescending(r => r.CreatedAt)
-            .Take(8)
+            .Take(6)
             .Select(r => new RequestDTO
             {
                 Id = r.Id,

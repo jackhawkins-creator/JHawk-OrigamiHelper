@@ -117,8 +117,11 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
 
         // Seed Sources
         modelBuilder.Entity<Source>().HasData(
-            new Source { Id = 1, Title = "Origami Design Secrets 2E" },
-            new Source { Id = 2, Title = "Works of Satoshi Kamiya 1995-2003" }
+            new Source { Id = 1, Title = "Vietnamese Origami Group Vol. 1" },
+            new Source { Id = 2, Title = "Works of Satoshi Kamiya 1995-2003" },
+            new Source { Id = 3, Title = "Works of Katsuta Kyohei" },
+            new Source { Id = 4, Title = "Origami Insects and Their Kin" },
+            new Source { Id = 5, Title = "Origami Design Secrets" }
         );
 
         // Seed Models
@@ -129,7 +132,7 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
                 Title = "Cooking Rat",
                 ComplexityId = 4,
                 SourceId = 1,
-                StepCount = 20,
+                StepCount = 121,
                 UserProfileId = 1,
                 CreatedAt = DateTime.UtcNow,
                 ModelImg = "/Images/rat.png",
@@ -146,6 +149,54 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
                 CreatedAt = DateTime.UtcNow,
                 ModelImg = "/Images/dragon.jpg",
                 Artist = "Satoshi Kamiya"
+            },
+            new Model
+            {
+                Id = 3,
+                Title = "Splash",
+                ComplexityId = 6,
+                SourceId = 2,
+                StepCount = 49,
+                UserProfileId = 1,
+                CreatedAt = DateTime.UtcNow,
+                ModelImg = "/Images/splash.jpg",
+                Artist = "Satoshi Kamiya"
+            },
+            new Model
+            {
+                Id = 4,
+                Title = "Maple Leaf",
+                ComplexityId = 2,
+                SourceId = 5,
+                StepCount = 32,
+                UserProfileId = 2,
+                CreatedAt = DateTime.UtcNow,
+                ModelImg = "/Images/leaf.jpg",
+                Artist = "Robert Lang"
+            },
+            new Model
+            {
+                Id = 5,
+                Title = "Octopus",
+                ComplexityId = 5,
+                SourceId = 3,
+                StepCount = 125,
+                UserProfileId = 3,
+                CreatedAt = DateTime.UtcNow,
+                ModelImg = "/Images/octopus.png",
+                Artist = "Katsuta Kyohei"
+            },
+            new Model
+            {
+                Id = 6,
+                Title = "Barn Owl",
+                ComplexityId = 4,
+                SourceId = 4,
+                StepCount = 84,
+                UserProfileId = 2,
+                CreatedAt = DateTime.UtcNow,
+                ModelImg = "/Images/owl.png",
+                Artist = "John Montroll"
             }
         );
 
@@ -153,7 +204,10 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
         modelBuilder.Entity<ModelPaper>().HasData(
             new ModelPaper { Id = 1, ModelId = 1, PaperId = 1 },
             new ModelPaper { Id = 2, ModelId = 2, PaperId = 3 },
-            new ModelPaper { Id = 3, ModelId = 2, PaperId = 2 } // Dragon also works with Washi
+            new ModelPaper { Id = 3, ModelId = 2, PaperId = 2 }, // Dragon also works with Washi
+            new ModelPaper { Id = 4, ModelId = 4, PaperId = 2 }, // Maple Leaf with Washi
+            new ModelPaper { Id = 5, ModelId = 5, PaperId = 3 }, // Octopus with Foil
+            new ModelPaper { Id = 6, ModelId = 6, PaperId = 1 }  // Owl with Kami
         );
 
         // Seed Help Requests
@@ -202,6 +256,33 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
                 StepNumber = 250,
                 Description = "This collapse is insane! Any tips on pre-creasing?",
                 CreatedAt = DateTime.UtcNow.AddDays(-1)
+            },
+            new Request
+            {
+                Id = 6,
+                UserId = 2,
+                ModelId = 3,
+                StepNumber = 11,
+                Description = "How do I sink the sides?",
+                CreatedAt = DateTime.UtcNow.AddDays(-4)
+            },
+            new Request
+            {
+                Id = 7,
+                UserId = 3,
+                ModelId = 5,
+                StepNumber = 77,
+                Description = "Can't figure out how the tentacles splay out. Help?",
+                CreatedAt = DateTime.UtcNow.AddDays(-3)
+            },
+            new Request
+            {
+                Id = 8,
+                UserId = 3,
+                ModelId = 6,
+                StepNumber = 40,
+                Description = "Squash fold here causes paper to rip. Paper too thick?",
+                CreatedAt = DateTime.UtcNow.AddDays(-1)
             }
         );
 
@@ -210,29 +291,11 @@ public class OrigamiHelperDbContext : IdentityDbContext<IdentityUser>
             new Response
             {
                 Id = 1,
-                RequestId = 1, // Reverse fold help on Cooking Rat
+                RequestId = 6, // Sink fold help on Kamiya Satoshi's Splash
                 ResponderId = 3, // Max Valley
-                Media = "https://www.youtube.com/watch?v=O-7w2Byevzc&pp=ygUTaW5zaWRlIHJldmVyc2UgZm9sZA%3D%3D",
-                Description = "Here’s how I do that reverse fold at Step 5. Use only the top two layers!",
+                Media = "/Videos/splashvidstep11 (aud removed).mov",
+                Description = "Make sure you use an open sink instead of a closed sink.",
                 CreatedAt = DateTime.UtcNow.AddDays(-2)
-            },
-            new Response
-            {
-                Id = 2,
-                RequestId = 2, // Sink fold tearing paper
-                ResponderId = 2, // Olivia Cranes
-                Media = "https://www.youtube.com/watch?v=DCKpxQ_wU0Q&pp=ygURc2luayBmb2xkIG9yaWdhbWk%3D",
-                Description = "Try slightly moistening the fold and use tweezers to control the collapse.",
-                CreatedAt = DateTime.UtcNow.AddDays(-1)
-            },
-            new Response
-            {
-                Id = 3,
-                RequestId = 4, // Asymmetrical squash fold
-                ResponderId = 1, // Admina Strator
-                Media = "https://www.youtube.com/watch?v=5ADtNYrUvCQ&pp=ygUTc3F1YXNoIGZvbGQgb3JpZ2FtaQ%3D%3D",
-                Description = "Line up your central crease before flattening, this should keep things symmetric.",
-                CreatedAt = DateTime.UtcNow
             }
         );
 
