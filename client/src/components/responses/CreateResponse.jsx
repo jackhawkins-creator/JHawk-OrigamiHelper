@@ -4,49 +4,52 @@ import { createResponse } from "../../managers/responseManager";
 
 export default function CreateResponse({ loggedInUser }) {
   const { requestId } = useParams();
-  const [media, setMedia] = useState("");
   const [description, setDescription] = useState("");
+  const [videoFile, setVideoFile] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = {
-      requestId: parseInt(requestId),
-      responderId: loggedInUser.id, // assuming this is UserProfile id
-      media,
-      description,
-    };
+    const formData = new FormData();
+    formData.append("videoFile", videoFile);
+    formData.append("requestId", requestId);
+    formData.append("responderId", loggedInUser.id);
+    formData.append("description", description);
 
     try {
-      await createResponse(response);
+      const res = await fetch("/api/response/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) throw new Error("Failed to upload video response.");
+
       navigate(`/responses/${requestId}`);
-    } catch (error) {
-      console.error("Failed to create response:", error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
   return (
     <div className="container mt-5">
-      <h3>Add a Video Response for Step Help</h3>
-      <form onSubmit={handleSubmit}>
+      <h3>Add a Video Response</h3>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="mb-3">
-          <label htmlFor="media" className="form-label">
-            YouTube Video URL
+          <label htmlFor="videoFile" className="form-label">
+            Upload Video File
           </label>
           <input
-            type="url"
+            type="file"
+            accept="video/*"
             className="form-control"
-            id="media"
-            value={media}
-            onChange={(e) => setMedia(e.target.value)}
-            placeholder="https://www.youtube.com/watch?v=..."
+            onChange={(e) => setVideoFile(e.target.files[0])}
             required
           />
         </div>
         <div className="mb-3">
           <label htmlFor="description" className="form-label">
-            Short Description
+            Description
           </label>
           <textarea
             className="form-control"
