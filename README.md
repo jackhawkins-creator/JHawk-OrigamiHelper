@@ -1,4 +1,3 @@
-````md
 # 🦢 Origami Helper
 
 **Origami Helper** is a full-stack web application that allows origami enthusiasts to share their models, request help with tricky steps, and respond to others' questions using video walkthroughs. Whether you're a beginner stuck on a squash fold or a veteran guiding others through complex sink folds, Origami Helper fosters a helpful and creative community.
@@ -75,7 +74,13 @@ Visit `http://localhost:5173` (or the port shown in the terminal) to use the app
 ## 🖼 Screenshots
 
 ![Home Page](./screenshots/homepage.png)
+
+---
+
 ![Model Detail](./screenshots/model-detail.png)
+
+---
+
 ![Help Request Form](./screenshots/request-form.png)
 
 ---
@@ -114,7 +119,3 @@ Password: (Set via app settings under `AdminPassword`)
 
 * Default seeded users: `origamifan1`, `paperfolder` with password `Origami123!`
 * Application automatically serves static media via `/Images` and `/Videos` routes.
-
-```
-
-```
