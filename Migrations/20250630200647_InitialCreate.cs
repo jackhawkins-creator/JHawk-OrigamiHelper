@@ -346,9 +346,9 @@ namespace OrigamiHelper.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "a1b2c3d4-5678-4eab-9fc1-100000000001", 0, "8f25155d-15e6-414c-998f-c20f3f37d846", "fan1@example.com", false, false, null, "FAN1@EXAMPLE.COM", "ORIGAMIFAN1", "AQAAAAIAAYagAAAAEOGSjpxhssO+k0Wc8lZ7+9sEh5FG+ssl4bJS67Vy18HTa4MNEZnEPzBLRXMD8WlkBQ==", null, false, "aa56d604-35e0-4c26-9468-d2045681f33c", false, "origamifan1" },
-                    { "a1b2c3d4-5678-4eab-9fc1-100000000002", 0, "2ed14192-e23d-4768-94ae-2463bbe64179", "folder@example.com", false, false, null, "FOLDER@EXAMPLE.COM", "PAPERFOLDER", "AQAAAAIAAYagAAAAEEWWIt6MLs02qcAbeeOwXaC5++epvWfZUScQoqKUb7x6IX7oDX1HslyVNjWP4H891A==", null, false, "47b6e66d-09fb-4cf4-adfc-a8a2cbfc64ed", false, "paperfolder" },
-                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "fb73066b-01ac-4782-96f1-8dcd88141c0a", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEHwl1YfWVxwtLTSAnyCOMdVxk13cyqd1fDAzTEKQ+gef5b9pfeibbhv6/lxdI4CJSw==", null, false, "7622f53a-d009-46a7-8729-b985fa4b6a79", false, "Administrator" }
+                    { "a1b2c3d4-5678-4eab-9fc1-100000000001", 0, "06e597e2-8c7e-4369-a7ce-0b0fee4f718b", "fan1@example.com", false, false, null, "FAN1@EXAMPLE.COM", "ORIGAMIFAN1", "AQAAAAIAAYagAAAAEGc6nPPm47A8uJ23wFSoJro2zWvyHsKOO9teQ4UiGj16gCBYdS2nC+gp1C+UNozq1Q==", null, false, "786a9a66-4b02-44a3-9475-4930021da442", false, "origamifan1" },
+                    { "a1b2c3d4-5678-4eab-9fc1-100000000002", 0, "6b9ca7c8-96ff-4443-871e-5ce8c896a29d", "folder@example.com", false, false, null, "FOLDER@EXAMPLE.COM", "PAPERFOLDER", "AQAAAAIAAYagAAAAEEbeJhsE5rFjYv/uCGvTWB+XVhOsJebED5r8Di8G0xiFWNDfOiKvF12d7B4e0oBJdQ==", null, false, "22f2ca9f-0fb0-49fe-9fab-a6e7f8a0ebae", false, "paperfolder" },
+                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "2f9d1752-4f3c-43d7-931a-a1c8636b38e3", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEL5SkZ8tYWKNPmwc3RSQOaeSaA6e5LGIIVfn6fVnLwPLZIVdDQk5Z5z0idGy32byZQ==", null, false, "bffc159d-cfc1-4c31-8882-e7f9f6d63137", false, "Administrator" }
                 });
 
             migrationBuilder.InsertData(
@@ -406,12 +406,12 @@ namespace OrigamiHelper.Migrations
                 columns: new[] { "Id", "Artist", "ComplexityId", "CreatedAt", "ModelImg", "SourceId", "StepCount", "Title", "UserProfileId" },
                 values: new object[,]
                 {
-                    { 1, "Nguyen Hong Chuong", 4, new DateTime(2025, 6, 26, 17, 57, 8, 361, DateTimeKind.Utc).AddTicks(6242), "/Images/rat.png", 1, 121, "Cooking Rat", 1 },
-                    { 2, "Satoshi Kamiya", 6, new DateTime(2025, 6, 26, 17, 57, 8, 361, DateTimeKind.Utc).AddTicks(6248), "/Images/dragon.jpg", 2, 274, "Ancient Dragon", 1 },
-                    { 3, "Satoshi Kamiya", 6, new DateTime(2025, 6, 26, 17, 57, 8, 361, DateTimeKind.Utc).AddTicks(6249), "/Images/splash.jpg", 2, 49, "Splash", 1 },
-                    { 4, "Robert Lang", 2, new DateTime(2025, 6, 26, 17, 57, 8, 361, DateTimeKind.Utc).AddTicks(6250), "/Images/leaf.jpg", 5, 32, "Maple Leaf", 2 },
-                    { 5, "Katsuta Kyohei", 5, new DateTime(2025, 6, 26, 17, 57, 8, 361, DateTimeKind.Utc).AddTicks(6251), "/Images/octopus.png", 3, 125, "Octopus", 3 },
-                    { 6, "John Montroll", 4, new DateTime(2025, 6, 26, 17, 57, 8, 361, DateTimeKind.Utc).AddTicks(6252), "/Images/owl.png", 4, 84, "Barn Owl", 2 }
+                    { 1, "Nguyen Hong Chuong", 4, new DateTime(2025, 6, 30, 20, 6, 47, 572, DateTimeKind.Utc).AddTicks(5006), "/Images/rat.png", 1, 121, "Cooking Rat", 1 },
+                    { 2, "Satoshi Kamiya", 6, new DateTime(2025, 6, 30, 20, 6, 47, 572, DateTimeKind.Utc).AddTicks(5011), "/Images/dragon.jpg", 2, 274, "Ancient Dragon", 1 },
+                    { 3, "Satoshi Kamiya", 6, new DateTime(2025, 6, 30, 20, 6, 47, 572, DateTimeKind.Utc).AddTicks(5011), "/Images/splash.jpg", 2, 49, "Splash", 1 },
+                    { 4, "Robert Lang", 2, new DateTime(2025, 6, 30, 20, 6, 47, 572, DateTimeKind.Utc).AddTicks(5012), "/Images/leaf.jpg", 5, 32, "Maple Leaf", 2 },
+                    { 5, "Katsuta Kyohei", 5, new DateTime(2025, 6, 30, 20, 6, 47, 572, DateTimeKind.Utc).AddTicks(5013), "/Images/octopus.png", 3, 125, "Octopus", 3 },
+                    { 6, "John Montroll", 4, new DateTime(2025, 6, 30, 20, 6, 47, 572, DateTimeKind.Utc).AddTicks(5014), "/Images/owl.png", 4, 84, "Barn Owl", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -432,20 +432,20 @@ namespace OrigamiHelper.Migrations
                 columns: new[] { "Id", "CreatedAt", "Description", "ModelId", "StepNumber", "UserId", "UserProfileId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 6, 23, 17, 57, 8, 361, DateTimeKind.Utc).AddTicks(6330), "Having trouble with the reverse fold. Not sure which layer to use.", 1, 5, 1, null },
-                    { 2, new DateTime(2025, 6, 25, 17, 57, 8, 361, DateTimeKind.Utc).AddTicks(6337), "Step 157's sink fold keeps tearing my paper. Is there a trick?", 2, 157, 1, null },
-                    { 3, new DateTime(2025, 6, 26, 17, 57, 8, 361, DateTimeKind.Utc).AddTicks(6338), "I'm not sure if the squash fold should go all the way through.", 2, 200, 1, null },
-                    { 4, new DateTime(2025, 6, 24, 17, 57, 8, 361, DateTimeKind.Utc).AddTicks(6338), "Step 12's squash fold keeps making my model asymmetrical.", 1, 12, 2, null },
-                    { 5, new DateTime(2025, 6, 25, 17, 57, 8, 361, DateTimeKind.Utc).AddTicks(6339), "This collapse is insane! Any tips on pre-creasing?", 2, 250, 3, null },
-                    { 6, new DateTime(2025, 6, 22, 17, 57, 8, 361, DateTimeKind.Utc).AddTicks(6340), "How do I sink the sides?", 3, 11, 2, null },
-                    { 7, new DateTime(2025, 6, 23, 17, 57, 8, 361, DateTimeKind.Utc).AddTicks(6341), "Can't figure out how the tentacles splay out. Help?", 5, 77, 3, null },
-                    { 8, new DateTime(2025, 6, 25, 17, 57, 8, 361, DateTimeKind.Utc).AddTicks(6467), "Squash fold here causes paper to rip. Paper too thick?", 6, 40, 3, null }
+                    { 1, new DateTime(2025, 6, 27, 20, 6, 47, 572, DateTimeKind.Utc).AddTicks(5065), "Having trouble with the reverse fold. Not sure which layer to use.", 1, 5, 1, null },
+                    { 2, new DateTime(2025, 6, 29, 20, 6, 47, 572, DateTimeKind.Utc).AddTicks(5071), "Step 157's sink fold keeps tearing my paper. Is there a trick?", 2, 157, 1, null },
+                    { 3, new DateTime(2025, 6, 30, 20, 6, 47, 572, DateTimeKind.Utc).AddTicks(5072), "I'm not sure if the squash fold should go all the way through.", 2, 200, 1, null },
+                    { 4, new DateTime(2025, 6, 28, 20, 6, 47, 572, DateTimeKind.Utc).AddTicks(5073), "Step 12's squash fold keeps making my model asymmetrical.", 1, 12, 2, null },
+                    { 5, new DateTime(2025, 6, 29, 20, 6, 47, 572, DateTimeKind.Utc).AddTicks(5074), "This collapse is insane! Any tips on pre-creasing?", 2, 250, 3, null },
+                    { 6, new DateTime(2025, 6, 26, 20, 6, 47, 572, DateTimeKind.Utc).AddTicks(5074), "How do I sink the sides?", 3, 11, 2, null },
+                    { 7, new DateTime(2025, 6, 27, 20, 6, 47, 572, DateTimeKind.Utc).AddTicks(5183), "Can't figure out how the tentacles splay out. Help?", 5, 77, 3, null },
+                    { 8, new DateTime(2025, 6, 29, 20, 6, 47, 572, DateTimeKind.Utc).AddTicks(5185), "Squash fold here causes paper to rip. Paper too thick?", 6, 40, 3, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Responses",
                 columns: new[] { "Id", "CreatedAt", "Description", "Media", "RequestId", "ResponderId" },
-                values: new object[] { 1, new DateTime(2025, 6, 24, 17, 57, 8, 361, DateTimeKind.Utc).AddTicks(6494), "Make sure you use an open sink instead of a closed sink.", "/Videos/splashvidstep11 (aud removed).mov", 6, 3 });
+                values: new object[] { 1, new DateTime(2025, 6, 28, 20, 6, 47, 572, DateTimeKind.Utc).AddTicks(5214), "Make sure you use an open sink instead of a closed sink.", "/Videos/splashvidstep11 (aud removed).mov", 6, 3 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
