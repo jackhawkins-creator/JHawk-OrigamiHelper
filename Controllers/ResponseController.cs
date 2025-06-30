@@ -107,6 +107,7 @@ public class ResponseController : ControllerBase
     [RequestSizeLimit(52428800)] // Limit to 50MB (optional)
     public async Task<IActionResult> UploadVideoResponse([FromForm] IFormFile videoFile, [FromForm] int requestId, [FromForm] int responderId, [FromForm] string description)
     {
+        // Make sure it's not empty
         if (videoFile == null || videoFile.Length == 0)
             return BadRequest("No video file uploaded.");
 
